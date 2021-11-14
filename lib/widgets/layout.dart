@@ -16,7 +16,9 @@ class _SiteLayoutState extends State<SiteLayout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldStateKey,
       appBar: topNavbar(context, scaffoldStateKey),
+      drawer: Drawer(),
       body: ResponsiveWidget(
         largeScreen: LargeScreen(),
         smallScreen: SmallScreen(),
