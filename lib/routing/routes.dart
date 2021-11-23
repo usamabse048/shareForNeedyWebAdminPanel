@@ -1,11 +1,11 @@
-const OverViewPageRoute = "overview";
-const AuthenticationPageRoute = "authentication";
-const NgoRegesterationRequestsRoute = "ngoRegisteration";
-const reportsRoute = "reportsRoute";
+const OverViewPageRoute = "Overview";
+const AuthenticationPageRoute = "Authentication";
+const NgoRegesterationRequestsRoute = "NgoRegisteration";
+const ReportsRoute = "Reports";
 
 List sideMenuItems = [
   OverViewPageRoute,
   AuthenticationPageRoute,
   NgoRegesterationRequestsRoute,
-  reportsRoute
+  ReportsRoute
 ];

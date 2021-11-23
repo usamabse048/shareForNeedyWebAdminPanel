@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_admin_panel/helpers/responsiveness.dart';
 import 'package:flutter_web_admin_panel/widgets/large_screen.dart';
+import 'package:flutter_web_admin_panel/widgets/side_menu.dart';
 import 'package:flutter_web_admin_panel/widgets/small_screen.dart';
 import 'package:flutter_web_admin_panel/widgets/top_navbar.dart';
 
@@ -18,7 +19,9 @@ class _SiteLayoutState extends State<SiteLayout> {
     return Scaffold(
       key: scaffoldStateKey,
       appBar: topNavbar(context, scaffoldStateKey),
-      drawer: Drawer(),
+      drawer: Drawer(
+        child: SideMenu(),
+      ),
       body: ResponsiveWidget(
         largeScreen: LargeScreen(),
         smallScreen: SmallScreen(),
