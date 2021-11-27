@@ -57,7 +57,7 @@ class HorizontleMenuItems extends StatelessWidget {
                 child: CustomText(
                   text: itemName,
                   color: dark,
-                  size: 18,
+                  size: 16,
                   fontWeight: FontWeight.bold,
                 ),
               ),

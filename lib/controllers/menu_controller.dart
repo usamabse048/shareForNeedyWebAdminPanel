@@ -36,7 +36,11 @@ class MenuController extends GetxController {
         return _customIcon(
             Icons.app_registration, NgoRegesterationRequestsRoute);
       case ReportsRoute:
-        return _customIcon(Icons.report, ReportsRoute);
+        return _customIcon(Icons.flag, ReportsRoute);
+      case AllRegisteredNgos:
+        return _customIcon(Icons.verified, AllRegisteredNgos);
+      case AllCharityRequests:
+        return _customIcon(Icons.attach_money, AllCharityRequests);
       default:
         return _customIcon(Icons.trending_up, OverViewPageRoute);
     }
