@@ -28,7 +28,7 @@ AppBar topNavbar(BuildContext context, GlobalKey<ScaffoldState> key) {
       children: [
         Visibility(
           child: CustomText(
-            text: "Dash",
+            text: "Dashboard",
             color: lightGrey,
             fontWeight: FontWeight.bold,
             size: 20.0,
