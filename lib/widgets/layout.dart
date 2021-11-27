@@ -19,6 +19,7 @@ class _SiteLayoutState extends State<SiteLayout> {
     return Scaffold(
       key: scaffoldStateKey,
       appBar: topNavbar(context, scaffoldStateKey),
+      extendBodyBehindAppBar: true,
       drawer: Drawer(
         child: SideMenu(),
       ),
