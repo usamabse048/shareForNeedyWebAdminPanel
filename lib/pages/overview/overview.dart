@@ -5,6 +5,7 @@ import 'package:flutter_web_admin_panel/helpers/responsiveness.dart';
 import 'package:flutter_web_admin_panel/pages/overview/widgets/overview_cards_large.dart';
 import 'package:flutter_web_admin_panel/pages/overview/widgets/overview_cards_medium.dart';
 import 'package:flutter_web_admin_panel/pages/overview/widgets/overview_cards_small.dart';
+import 'package:flutter_web_admin_panel/pages/overview/widgets/registered_ngos.dart';
 import 'package:flutter_web_admin_panel/widgets/custom_text.dart';
 import 'package:get/get.dart';
 
@@ -37,7 +38,8 @@ class OverviewPage extends StatelessWidget {
             else if (ResponsiveWidget.isMediumScreen(context))
               OverviewCardsMediumScreen()
             else
-              OverviewCardsSmallScreen()
+              OverviewCardsSmallScreen(),
+            RegisteredNgosTable()
           ],
         ))
       ],
