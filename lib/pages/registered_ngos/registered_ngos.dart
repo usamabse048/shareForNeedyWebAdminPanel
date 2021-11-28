@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_admin_panel/constants/controllers.dart';
 import 'package:flutter_web_admin_panel/constants/style.dart';
+import 'package:flutter_web_admin_panel/controllers/donors_controller.dart';
 import 'package:flutter_web_admin_panel/helpers/responsiveness.dart';
 import 'package:flutter_web_admin_panel/widgets/custom_text.dart';
 import 'package:get/get.dart';
@@ -25,7 +26,22 @@ class RegisteredNgosPage extends StatelessWidget {
                   ),
                 )
               ],
-            ))
+            )),
+        GetX<DonorsController>(
+            init: Get.put(DonorsController()),
+            builder: (DonorsController donorsController) {
+              if (donorsController != null && donorsController.donors != null) {
+                return Expanded(
+                    child: ListView.builder(
+                  itemBuilder: (_, index) {
+                    return Text(donorsController.donors[index].userName);
+                  },
+                  itemCount: donorsController.donors.length,
+                ));
+              } else {
+                return Text("Warr gye");
+              }
+            })
       ],
     );
   }

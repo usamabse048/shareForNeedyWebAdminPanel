@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_admin_panel/constants/style.dart';
@@ -5,18 +6,16 @@ import 'package:flutter_web_admin_panel/controllers/menu_controller.dart';
 import 'package:flutter_web_admin_panel/controllers/navigation_controller.dart';
 import 'package:flutter_web_admin_panel/pages/404/error_page.dart';
 import 'package:flutter_web_admin_panel/pages/authentication/authentication.dart';
-import 'package:flutter_web_admin_panel/pages/charity_requests/charity_requests.dart';
-import 'package:flutter_web_admin_panel/pages/ngo_verfication_request/Ngo_verification_request.dart';
-import 'package:flutter_web_admin_panel/pages/overview/overview.dart';
-import 'package:flutter_web_admin_panel/pages/registered_ngos/registered_ngos.dart';
-import 'package:flutter_web_admin_panel/pages/reports/reports.dart';
 import 'package:flutter_web_admin_panel/routing/routes.dart';
 import 'package:flutter_web_admin_panel/widgets/layout.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/instance_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-void main() {
+void main() async {
+  await Firebase.initializeApp();
+  WidgetsFlutterBinding.ensureInitialized();
+
   Get.put(MenuController());
   Get.put(NavigationController());
   runApp(MyApp());
