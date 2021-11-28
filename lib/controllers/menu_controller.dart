@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 
 class MenuController extends GetxController {
   static MenuController instance = Get.find();
-  var activeItem = OverViewPageRoute.obs;
+  var activeItem = OverViewPageDisplayName.obs;
   var hoverItem = "".obs;
 
   changeActiveItemTo(String itemName) {
@@ -28,21 +28,20 @@ class MenuController extends GetxController {
 
   Widget returnIconFor(String itemName) {
     switch (itemName) {
-      case OverViewPageRoute:
-        return _customIcon(Icons.trending_up, OverViewPageRoute);
-      case AuthenticationPageRoute:
-        return _customIcon(Icons.lock, AuthenticationPageRoute);
-      case NgoRegesterationRequestsRoute:
-        return _customIcon(
-            Icons.app_registration, NgoRegesterationRequestsRoute);
-      case ReportsRoute:
-        return _customIcon(Icons.flag, ReportsRoute);
-      case AllRegisteredNgos:
-        return _customIcon(Icons.verified, AllRegisteredNgos);
-      case AllCharityRequests:
-        return _customIcon(Icons.attach_money, AllCharityRequests);
+      case OverViewPageDisplayName:
+        return _customIcon(Icons.trending_up, itemName);
+      case AuthenticationPageDisplayName:
+        return _customIcon(Icons.lock, itemName);
+      case NgoRegesterationRequestsPageDisplayName:
+        return _customIcon(Icons.app_registration, itemName);
+      case ReportsPageDisplayName:
+        return _customIcon(Icons.flag, itemName);
+      case RegisteredNgosPageDisplayName:
+        return _customIcon(Icons.verified, itemName);
+      case CharityRequestsPageDisplayName:
+        return _customIcon(Icons.attach_money, itemName);
       default:
-        return _customIcon(Icons.trending_up, OverViewPageRoute);
+        return _customIcon(Icons.trending_up, itemName);
     }
   }
 
