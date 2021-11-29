@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_admin_panel/constants/style.dart';
+import 'package:flutter_web_admin_panel/controllers/charity_requests_controller.dart';
 import 'package:flutter_web_admin_panel/controllers/menu_controller.dart';
 import 'package:flutter_web_admin_panel/controllers/navigation_controller.dart';
 import 'package:flutter_web_admin_panel/pages/404/error_page.dart';
@@ -15,6 +16,7 @@ import 'package:google_fonts/google_fonts.dart';
 void main() async {
   await Firebase.initializeApp();
   WidgetsFlutterBinding.ensureInitialized();
+  Get.put(CharityRequestsController());
 
   Get.put(MenuController());
   Get.put(NavigationController());
@@ -34,11 +36,6 @@ class MyApp extends StatelessWidget {
         GetPage(name: RootRoute, page: () => SiteLayout()),
         GetPage(
             name: AuthenticationPageRoute, page: () => AuthenticationPage()),
-        // GetPage(name: OverViewPageRoute, page: () => OverviewPage()),
-        // GetPage(name: RegisteredNgosPageRoute, page: () => RegisteredNgosPage()),
-        // GetPage(name: CharityRequestsPageRoute, page: () => CharityRequestsPage()),
-        // GetPage(name: NgoRegesterationRequestsPageRoute, page: () => NGOVerificationRequestsPage()),
-        // GetPage(name: ReportsPageRoute, page: () => ReportsPage()),
       ],
       debugShowCheckedModeBanner: false,
       title: "Dashboard",

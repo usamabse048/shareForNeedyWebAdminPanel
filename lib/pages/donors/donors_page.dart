@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web_admin_panel/constants/controllers.dart';
 import 'package:flutter_web_admin_panel/constants/style.dart';
 import 'package:flutter_web_admin_panel/helpers/responsiveness.dart';
-import 'package:flutter_web_admin_panel/pages/charity_requests/widgets/charity_requests_table.dart';
+import 'package:flutter_web_admin_panel/pages/donors/widgets/donors_table.dart';
 import 'package:flutter_web_admin_panel/widgets/custom_text.dart';
 import 'package:get/get.dart';
 
-class CharityRequestsPage extends StatelessWidget {
-  const CharityRequestsPage({Key? key}) : super(key: key);
+class DonorsPage extends StatelessWidget {
+  const DonorsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class CharityRequestsPage extends StatelessWidget {
                 )
               ],
             )),
-        CharityRequestsTable(),
+        DonorsTable()
       ],
     );
   }

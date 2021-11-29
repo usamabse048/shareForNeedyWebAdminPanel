@@ -1,3 +1,4 @@
+import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_admin_panel/constants/controllers.dart';
 import 'package:flutter_web_admin_panel/constants/style.dart';
@@ -30,6 +31,51 @@ class RegisteredNgosPage extends StatelessWidget {
         GetX<DonorsController>(
             init: Get.put(DonorsController()),
             builder: (DonorsController donorsController) {
+              return DataTable2(
+                  columnSpacing: 12,
+                  horizontalMargin: 12,
+                  minWidth: 600,
+                  columns: [
+                    DataColumn2(
+                      label: Text('Name'),
+                      size: ColumnSize.L,
+                    ),
+                    DataColumn(
+                      label: Text('Phone'),
+                    ),
+                    DataColumn(
+                      label: Text('Email'),
+                    ),
+                    DataColumn(
+                      label: Text('Bank Name'),
+                      numeric: true,
+                    ),
+                    DataColumn(
+                      label: Text('Bank Account Number'),
+                    ),
+                    DataColumn(
+                      label: Text('Bank Account Title'),
+                      numeric: true,
+                    ),
+                  ],
+                  rows: List<DataRow>.generate(
+                      donorsController.donors.length,
+                      (index) => DataRow(cells: [
+                            DataCell(
+                                Text(donorsController.donors[index].userName)),
+                            DataCell(Text(donorsController
+                                .donors[index].userPhoneNumber)),
+                            DataCell(
+                                Text(donorsController.donors[index].userEmail)),
+                            DataCell(
+                                Text(donorsController.donors[index].bankName)),
+                            DataCell(Text(donorsController
+                                .donors[index].userAccountNumber)),
+                            DataCell(Text(donorsController
+                                .donors[index].userAccountTitle)),
+                          ])));
+
+              /*
               if (donorsController != null && donorsController.donors != null) {
                 return Expanded(
                     child: ListView.builder(
@@ -40,7 +86,7 @@ class RegisteredNgosPage extends StatelessWidget {
                 ));
               } else {
                 return Text("Warr gye");
-              }
+              }*/
             })
       ],
     );

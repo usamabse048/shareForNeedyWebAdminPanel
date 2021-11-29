@@ -17,6 +17,10 @@ const RegisteredNgosPageRoute = "/registeredngos";
 
 const CharityRequestsPageDisplayName = "Charity Requests";
 const CharityRequestsPageRoute = "/charityrequests";
+
+const DonorsPageDisplayName = "All Donors";
+const DonorsPageRoute = "/donors";
+
 //const NgoVerificationRoute = "Verify NGOs";
 
 class MenuItem {
@@ -30,6 +34,7 @@ List sideMenuItems = [
   MenuItem(OverViewPageDisplayName, OverViewPageRoute),
   MenuItem(NgoRegesterationRequestsPageDisplayName,
       NgoRegesterationRequestsPageRoute),
+  MenuItem(DonorsPageDisplayName, DonorsPageRoute),
   MenuItem(RegisteredNgosPageDisplayName, RegisteredNgosPageRoute),
   MenuItem(CharityRequestsPageDisplayName, CharityRequestsPageRoute),
   MenuItem(ReportsPageDisplayName, ReportsPageRoute),
