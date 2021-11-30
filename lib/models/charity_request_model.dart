@@ -3,19 +3,31 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class CharityRequestModel {
   late String title;
   late String uploadedBy;
+  late String donationId;
   late int requiredAmount;
   late String needyPhoneNumber;
   late String charityLocation;
   late int collectedAmount;
   late String description;
+  late List<dynamic> donorsName;
+  late List<dynamic> donorsDonateAmount;
+  late List<dynamic> imageUrl;
+  late String moderatorId;
 
-  CharityRequestModel(
-      {required this.title,
-      required this.description,
-      required this.uploadedBy,
-      required this.requiredAmount,
-      required this.collectedAmount,
-      required this.charityLocation});
+  CharityRequestModel({
+    required this.title,
+    required this.description,
+    required this.uploadedBy,
+    required this.requiredAmount,
+    required this.collectedAmount,
+    required this.donationId,
+    required this.moderatorId,
+    required this.charityLocation,
+    required this.donorsDonateAmount,
+    required this.donorsName,
+    required this.imageUrl,
+    required this.needyPhoneNumber,
+  });
 
   CharityRequestModel.fromQueryDocumentSnapshot(
       QueryDocumentSnapshot<Map<String, dynamic>> queryDocumentSnapshot) {
@@ -26,5 +38,10 @@ class CharityRequestModel {
     description = queryDocumentSnapshot.data()['description'];
     needyPhoneNumber = queryDocumentSnapshot.data()['needyPhoneNumber'];
     charityLocation = queryDocumentSnapshot.data()['charityLocation'];
+    donationId = queryDocumentSnapshot.data()['donationId'];
+    moderatorId = queryDocumentSnapshot.data()['moderatorId'];
+    donorsDonateAmount = queryDocumentSnapshot.data()['donorsDonateAmount'];
+    donorsName = queryDocumentSnapshot.data()['donorsName'];
+    imageUrl = queryDocumentSnapshot.data()['imageUrl'];
   }
 }

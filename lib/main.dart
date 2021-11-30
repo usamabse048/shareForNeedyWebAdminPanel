@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_admin_panel/constants/style.dart';
 import 'package:flutter_web_admin_panel/controllers/charity_requests_controller.dart';
+import 'package:flutter_web_admin_panel/controllers/donors_controller.dart';
 import 'package:flutter_web_admin_panel/controllers/menu_controller.dart';
 import 'package:flutter_web_admin_panel/controllers/navigation_controller.dart';
 import 'package:flutter_web_admin_panel/pages/404/error_page.dart';
@@ -17,6 +18,7 @@ void main() async {
   await Firebase.initializeApp();
   WidgetsFlutterBinding.ensureInitialized();
   Get.put(CharityRequestsController());
+  Get.put(DonorsController());
 
   Get.put(MenuController());
   Get.put(NavigationController());

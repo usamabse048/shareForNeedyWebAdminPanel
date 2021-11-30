@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_web_admin_panel/pages/overview/widgets/info_card.dart';
 
 class OverviewCardsLargeScreen extends StatelessWidget {
@@ -27,7 +28,7 @@ class OverviewCardsLargeScreen extends StatelessWidget {
         ),
         InfoCard(
             title: "Total Donors",
-            value: "32",
+            value: "2",
             topColor: Colors.blueGrey,
             onTap: () {}),
         SizedBox(

@@ -16,15 +16,6 @@ class Database {
       });
       return retval;
     });
-
-    //     .map((QuerySnapshot querySnapshot) {
-    //   List<DonorModel> retval = [];
-    //   querySnapshot.docs.forEach((element) {
-    //     retval.add(DonorModel.fromDocumentSnapshot(element));
-
-    //   });
-    //   return retval;
-    // });
   }
 
   Stream<List<CharityRequestModel>> charityRequetsStream() {
@@ -40,6 +31,7 @@ class Database {
     });
   }
 
+// search charity requests with query
   Stream<List<CharityRequestModel>> searchCharityByCity(String query) {
     if (query == "") {
       return _firestore
@@ -65,5 +57,48 @@ class Database {
         return retval;
       });
     }
+  }
+
+  // search donors with query
+  Stream<List<DonorModel>> searchDonorsByName(String query) {
+    if (query == "") {
+      return _firestore
+          .collection('users')
+          .snapshots()
+          .map((QuerySnapshot<Map<String, dynamic>> querySnapshot) {
+        List<DonorModel> retval = [];
+        querySnapshot.docs.forEach((element) {
+          retval.add(DonorModel.fromDocumentSnapshot(element));
+        });
+        return retval;
+      });
+    } else {
+      return _firestore
+          .collection('users')
+          .where('searchKeywords', arrayContains: query)
+          .snapshots()
+          .map((QuerySnapshot<Map<String, dynamic>> querySnapshot) {
+        List<DonorModel> retval = [];
+        querySnapshot.docs.forEach((element) {
+          retval.add(DonorModel.fromDocumentSnapshot(element));
+        });
+        return retval;
+      });
+    }
+  }
+
+  void deleteCharityRequest(String charityId, String moderatorId) {
+    // TODO:: Test delete charity request very important
+    _firestore
+        .collection('donations')
+        .doc(charityId)
+        .delete()
+        .then((value) => print("Charity Deleted from donations"))
+        .catchError((error) => print("Failed to delete user: $error"));
+
+    _firestore.collection('moderators').doc(moderatorId).update({
+      'uploadedDonations': FieldValue.arrayRemove([charityId])
+    }).catchError(
+        (error) => print("Failed to charity request from moderator: $error"));
   }
 }

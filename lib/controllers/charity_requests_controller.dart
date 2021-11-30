@@ -9,20 +9,11 @@ class CharityRequestsController extends GetxController {
       RxList<CharityRequestModel>();
   List<CharityRequestModel> get charityRequests => charityRequestsList.value;
 
-  var query = "".obs;
-  void changeQueryValue(String value) {
-    query.value = value;
-    print(query.value);
-  }
-
   void bindSearchStream(String query) {
     charityRequestsList.bindStream(Database().searchCharityByCity(query));
   }
 
-  @override
-  void onInit() {
-    //charityRequestsList.bindStream(Database().charityRequetsStream());
-    //charityRequestsList.bindStream(Database().searchCharityByCity(query.value));
-    super.onInit();
+  void deleteCharityRequests(String charityId, String moderatorId) {
+    Database().deleteCharityRequest(charityId, moderatorId);
   }
 }

@@ -1,8 +1,11 @@
+import 'dart:ui';
+
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_admin_panel/constants/controllers.dart';
 import 'package:flutter_web_admin_panel/constants/style.dart';
-import 'package:flutter_web_admin_panel/controllers/charity_requests_controller.dart';
+import 'package:flutter_web_admin_panel/pages/charity_requests/widgets/detail_cell.dart';
+
 import 'package:flutter_web_admin_panel/widgets/custom_text.dart';
 import 'package:get/get.dart';
 
@@ -42,10 +45,16 @@ class CharityRequestsTable extends StatelessWidget {
                   fontWeight: FontWeight.bold)
             ],
           ),
+          SizedBox(
+            height: 20,
+          ),
           TextField(
             controller: _textEditingController,
             decoration: InputDecoration(
                 hintText: "Enter City Name", suffixIcon: Icon(Icons.search)),
+          ),
+          SizedBox(
+            height: 20,
           ),
           Obx(() {
             charityRequestsController
@@ -57,20 +66,47 @@ class CharityRequestsTable extends StatelessWidget {
               minWidth: 600,
               columns: [
                 DataColumn2(
-                  label: Text('Title'),
+                  label: Text(
+                    'Title',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                   size: ColumnSize.L,
                 ),
                 DataColumn(
-                  label: Text('Requied Amount'),
+                  label: Text(
+                    'Requied Amount',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
                 DataColumn(
-                  label: Text('Collected Amount'),
+                  label: Text(
+                    'Collected Amount',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
                 DataColumn(
-                  label: Text('NGO'),
+                  label: Text(
+                    'NGO',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
                 DataColumn(
-                  label: Text('City'),
+                  label: Text(
+                    'City',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                DataColumn(
+                  label: Text(
+                    'Action',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                DataColumn(
+                  label: Text(
+                    'Action',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
               ],
               rows: List<DataRow>.generate(
@@ -89,6 +125,216 @@ class CharityRequestsTable extends StatelessWidget {
                         .charityRequests[index].uploadedBy)),
                     DataCell(Text(charityRequestsController
                         .charityRequests[index].charityLocation)),
+                    DataCell(ElevatedButton(
+                      style: ElevatedButton.styleFrom(primary: Colors.green),
+                      child: Text(
+                        "View Details",
+                      ),
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (_) => AlertDialog(
+                                  backgroundColor: Colors.grey[50],
+                                  title: Text(charityRequestsController
+                                      .charityRequests[index].title),
+                                  content: Container(
+                                    height: 600,
+                                    width: 600,
+                                    color: Colors.grey[50],
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                            child: Text(
+                                                charityRequestsController
+                                                    .charityRequests[index]
+                                                    .description),
+                                          ),
+                                          SizedBox(
+                                            height: 20,
+                                          ),
+                                          Container(
+                                            padding: EdgeInsets.all(8),
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              border: Border.all(
+                                                  color: dark, width: 0.5),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "Details",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                DetailCell(
+                                                  title: "NGO",
+                                                  detail:
+                                                      charityRequestsController
+                                                          .charityRequests[
+                                                              index]
+                                                          .uploadedBy,
+                                                ),
+                                                DetailCell(
+                                                    title: "City",
+                                                    detail:
+                                                        charityRequestsController
+                                                            .charityRequests[
+                                                                index]
+                                                            .charityLocation),
+                                                DetailCell(
+                                                    title: "Required Amount",
+                                                    detail:
+                                                        charityRequestsController
+                                                            .charityRequests[
+                                                                index]
+                                                            .requiredAmount
+                                                            .toString()),
+                                                DetailCell(
+                                                  title: "Collected Amount",
+                                                  detail:
+                                                      charityRequestsController
+                                                          .charityRequests[
+                                                              index]
+                                                          .collectedAmount
+                                                          .toString(),
+                                                ),
+                                                DetailCell(
+                                                    title: "Needy Phone Number",
+                                                    detail:
+                                                        charityRequestsController
+                                                            .charityRequests[
+                                                                index]
+                                                            .needyPhoneNumber),
+                                              ],
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 20,
+                                          ),
+                                          Container(
+                                            padding: EdgeInsets.all(8),
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              border: Border.all(
+                                                  color: dark, width: 0.5),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "Donors",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                      border: Border.all(
+                                                          color: lightGrey
+                                                              .withOpacity(0.5),
+                                                          width: 0.5),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8)),
+                                                  child: DataTable2(
+                                                    columns: [
+                                                      DataColumn(
+                                                        label: Text(
+                                                          'Name',
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                      ),
+                                                      DataColumn(
+                                                        label: Text(
+                                                          'Donated Amount',
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                    rows:
+                                                        List<DataRow>.generate(
+                                                      charityRequestsController
+                                                          .charityRequests[
+                                                              index]
+                                                          .donorsName
+                                                          .length,
+                                                      (donorIndex) => DataRow(
+                                                        cells: [
+                                                          DataCell(
+                                                            Text(
+                                                              charityRequestsController
+                                                                      .charityRequests[
+                                                                          index]
+                                                                      .donorsName[
+                                                                  donorIndex],
+                                                            ),
+                                                          ),
+                                                          DataCell(
+                                                            Text(
+                                                              charityRequestsController
+                                                                  .charityRequests[
+                                                                      index]
+                                                                  .donorsDonateAmount[
+                                                                      donorIndex]
+                                                                  .toString(),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ));
+                      },
+                    )),
+                    DataCell(ElevatedButton(
+                      style: ElevatedButton.styleFrom(primary: Colors.red),
+                      child: Text(
+                        "Delete",
+                      ),
+                      onPressed: () {
+                        print(charityRequestsController
+                            .charityRequests[index].donationId);
+                        print(charityRequestsController
+                            .charityRequests[index].moderatorId);
+                        charityRequestsController.deleteCharityRequests(
+                            charityRequestsController
+                                .charityRequests[index].donationId,
+                            charityRequestsController
+                                .charityRequests[index].moderatorId);
+                      },
+                    )),
                   ],
                 ),
               ),
