@@ -1,5 +1,6 @@
 const RootRoute = "/";
 
+const NgoDetailPageRoute = "/ngodetail";
 const OverViewPageDisplayName = "Overview";
 const OverViewPageRoute = "/overview";
 

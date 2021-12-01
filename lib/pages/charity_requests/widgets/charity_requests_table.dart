@@ -157,6 +157,34 @@ class CharityRequestsTable extends StatelessWidget {
                                             height: 20,
                                           ),
                                           Container(
+                                              height: 200,
+                                              child: ListView.builder(
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                itemCount:
+                                                    charityRequestsController
+                                                        .charityRequests[index]
+                                                        .imageUrl
+                                                        .length,
+                                                itemBuilder:
+                                                    (BuildContext context,
+                                                        int itemIndex) {
+                                                  return Container(
+                                                    height: 150,
+                                                    width: 200,
+                                                    child: Image.network(
+                                                        charityRequestsController
+                                                                .charityRequests[
+                                                                    index]
+                                                                .imageUrl[
+                                                            itemIndex]),
+                                                  );
+                                                },
+                                              )),
+                                          SizedBox(
+                                            height: 20,
+                                          ),
+                                          Container(
                                             padding: EdgeInsets.all(8),
                                             decoration: BoxDecoration(
                                               color: Colors.white,
@@ -254,59 +282,78 @@ class CharityRequestsTable extends StatelessWidget {
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               8)),
-                                                  child: DataTable2(
-                                                    columns: [
-                                                      DataColumn(
-                                                        label: Text(
-                                                          'Name',
-                                                          style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                        ),
-                                                      ),
-                                                      DataColumn(
-                                                        label: Text(
-                                                          'Donated Amount',
-                                                          style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                    rows:
-                                                        List<DataRow>.generate(
-                                                      charityRequestsController
-                                                          .charityRequests[
-                                                              index]
-                                                          .donorsName
-                                                          .length,
-                                                      (donorIndex) => DataRow(
-                                                        cells: [
-                                                          DataCell(
-                                                            Text(
-                                                              charityRequestsController
-                                                                      .charityRequests[
-                                                                          index]
-                                                                      .donorsName[
-                                                                  donorIndex],
+                                                  child: charityRequestsController
+                                                              .charityRequests[
+                                                                  index]
+                                                              .donorsName
+                                                              .length ==
+                                                          0
+                                                      ? Container(
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  16),
+                                                          width: MediaQuery.of(
+                                                                  context)
+                                                              .size
+                                                              .width,
+                                                          child: Center(
+                                                            child: Text(
+                                                                "No Donations Collected Yet"),
+                                                          ),
+                                                        )
+                                                      : DataTable2(
+                                                          columns: [
+                                                            DataColumn(
+                                                              label: Text(
+                                                                'Name',
+                                                                style: TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                              ),
+                                                            ),
+                                                            DataColumn(
+                                                              label: Text(
+                                                                'Donated Amount',
+                                                                style: TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                          rows: List<
+                                                              DataRow>.generate(
+                                                            charityRequestsController
+                                                                .charityRequests[
+                                                                    index]
+                                                                .donorsName
+                                                                .length,
+                                                            (donorIndex) =>
+                                                                DataRow(
+                                                              cells: [
+                                                                DataCell(
+                                                                  Text(
+                                                                    charityRequestsController
+                                                                        .charityRequests[
+                                                                            index]
+                                                                        .donorsName[donorIndex],
+                                                                  ),
+                                                                ),
+                                                                DataCell(
+                                                                  Text(
+                                                                    charityRequestsController
+                                                                        .charityRequests[
+                                                                            index]
+                                                                        .donorsDonateAmount[
+                                                                            donorIndex]
+                                                                        .toString(),
+                                                                  ),
+                                                                ),
+                                                              ],
                                                             ),
                                                           ),
-                                                          DataCell(
-                                                            Text(
-                                                              charityRequestsController
-                                                                  .charityRequests[
-                                                                      index]
-                                                                  .donorsDonateAmount[
-                                                                      donorIndex]
-                                                                  .toString(),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
+                                                        ),
                                                 ),
                                               ],
                                             ),

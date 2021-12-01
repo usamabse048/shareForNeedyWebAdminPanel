@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_web_admin_panel/models/charity_request_model.dart';
 import 'package:flutter_web_admin_panel/models/donor.dart';
+import 'package:flutter_web_admin_panel/models/ngo_detail_model.dart';
+import 'package:flutter_web_admin_panel/models/ngo_model.dart';
 
 class Database {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -88,7 +90,6 @@ class Database {
   }
 
   void deleteCharityRequest(String charityId, String moderatorId) {
-    // TODO:: Test delete charity request very important
     _firestore
         .collection('donations')
         .doc(charityId)
@@ -96,9 +97,76 @@ class Database {
         .then((value) => print("Charity Deleted from donations"))
         .catchError((error) => print("Failed to delete user: $error"));
 
-    _firestore.collection('moderators').doc(moderatorId).update({
-      'uploadedDonations': FieldValue.arrayRemove([charityId])
-    }).catchError(
-        (error) => print("Failed to charity request from moderator: $error"));
+    _firestore
+        .collection('moderators')
+        .doc(moderatorId)
+        .update({
+          'uploadedDonations': FieldValue.arrayRemove([charityId])
+        })
+        .then((value) => print("Charity Deleted from Moderator data"))
+        .catchError((error) =>
+            print("Failed to delete charity request from moderator: $error"));
+
+    _firestore
+        .collection('moderators')
+        .doc(moderatorId)
+        .collection('moderator_donations')
+        .doc(charityId)
+        .delete()
+        .then((value) => print("charity deleted from nested collectiom"))
+        .catchError((error) => print(
+            "Failed to delete charity request from moderator nested collection: $error"));
+  }
+
+//get ngo details
+
+  Future<NgoDetailModel> getNgoDetail(String id) async {
+    try {
+      NgoDetailModel ngoDetailModel = await _firestore
+          .collection('moderators')
+          .doc(id)
+          .collection('NGODetails')
+          .doc(id)
+          .get()
+          .then((DocumentSnapshot documentSnapshot) {
+        return NgoDetailModel.fromDocumentSnapshot(documentSnapshot);
+      });
+
+      return ngoDetailModel;
+    } catch (e) {
+      print(e.toString());
+      rethrow;
+    }
+
+    //   .map((DocumentSnapshot documentSnapshot) {
+    // return NgoDetailModel.fromDocumentSnapshot(documentSnapshot);
+  }
+
+  // search Ngos by query
+  Stream<List<NgoModel>> searchNgoByTitle(String query) {
+    if (query == "") {
+      return _firestore
+          .collection('moderators')
+          .snapshots()
+          .map((QuerySnapshot<Map<String, dynamic>> querySnapshot) {
+        List<NgoModel> retval = [];
+        querySnapshot.docs.forEach((element) {
+          retval.add(NgoModel.fromQueryDocumentSnapshot(element));
+        });
+        return retval;
+      });
+    } else {
+      return _firestore
+          .collection('moderators')
+          .where('searchKeywords', arrayContains: query)
+          .snapshots()
+          .map((QuerySnapshot<Map<String, dynamic>> querySnapshot) {
+        List<NgoModel> retval = [];
+        querySnapshot.docs.forEach((element) {
+          retval.add(NgoModel.fromQueryDocumentSnapshot(element));
+        });
+        return retval;
+      });
+    }
   }
 }

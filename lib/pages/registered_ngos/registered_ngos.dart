@@ -4,6 +4,7 @@ import 'package:flutter_web_admin_panel/constants/controllers.dart';
 import 'package:flutter_web_admin_panel/constants/style.dart';
 import 'package:flutter_web_admin_panel/controllers/donors_controller.dart';
 import 'package:flutter_web_admin_panel/helpers/responsiveness.dart';
+import 'package:flutter_web_admin_panel/pages/registered_ngos/widgets/ngos_table.dart';
 import 'package:flutter_web_admin_panel/widgets/custom_text.dart';
 import 'package:get/get.dart';
 
@@ -28,6 +29,15 @@ class RegisteredNgosPage extends StatelessWidget {
                 )
               ],
             )),
+        SizedBox(
+          height: 20,
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        NgoTable(),
+
+        /*
         GetX<DonorsController>(
             init: Get.put(DonorsController()),
             builder: (DonorsController donorsController) {
@@ -87,7 +97,7 @@ class RegisteredNgosPage extends StatelessWidget {
               } else {
                 return Text("Warr gye");
               }*/
-            })
+            })*/
       ],
     );
   }

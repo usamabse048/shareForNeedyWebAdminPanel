@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_admin_panel/pages/charity_requests/charity_requests.dart';
 import 'package:flutter_web_admin_panel/pages/donors/donors_page.dart';
+import 'package:flutter_web_admin_panel/pages/ngo_detail_page.dart/ngo_detail_page.dart';
 import 'package:flutter_web_admin_panel/pages/ngo_verfication_request/Ngo_verification_request.dart';
 import 'package:flutter_web_admin_panel/pages/overview/overview.dart';
 import 'package:flutter_web_admin_panel/pages/registered_ngos/registered_ngos.dart';
@@ -23,6 +24,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(RegisteredNgosPage());
     case CharityRequestsPageRoute:
       return _getPageRoute(CharityRequestsPage());
+    case NgoDetailPageRoute:
+      return _getPageRoute(NgoDetailPage());
     default:
       return _getPageRoute(OverviewPage());
   }

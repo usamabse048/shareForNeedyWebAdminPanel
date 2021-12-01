@@ -6,8 +6,11 @@ import 'package:flutter_web_admin_panel/controllers/charity_requests_controller.
 import 'package:flutter_web_admin_panel/controllers/donors_controller.dart';
 import 'package:flutter_web_admin_panel/controllers/menu_controller.dart';
 import 'package:flutter_web_admin_panel/controllers/navigation_controller.dart';
+import 'package:flutter_web_admin_panel/controllers/ngo_controller.dart';
+import 'package:flutter_web_admin_panel/controllers/ngo_detail_controller.dart';
 import 'package:flutter_web_admin_panel/pages/404/error_page.dart';
 import 'package:flutter_web_admin_panel/pages/authentication/authentication.dart';
+import 'package:flutter_web_admin_panel/pages/ngo_detail_page.dart/ngo_detail_page.dart';
 import 'package:flutter_web_admin_panel/routing/routes.dart';
 import 'package:flutter_web_admin_panel/widgets/layout.dart';
 import 'package:get/get_navigation/get_navigation.dart';
@@ -19,6 +22,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Get.put(CharityRequestsController());
   Get.put(DonorsController());
+  Get.put(NgoController());
+  Get.put(NgoDetailController());
 
   Get.put(MenuController());
   Get.put(NavigationController());
@@ -38,6 +43,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: RootRoute, page: () => SiteLayout()),
         GetPage(
             name: AuthenticationPageRoute, page: () => AuthenticationPage()),
+        GetPage(name: NgoDetailPageRoute, page: () => NgoDetailPage()),
       ],
       debugShowCheckedModeBanner: false,
       title: "Dashboard",
