@@ -31,17 +31,18 @@ class CharityRequestModel {
 
   CharityRequestModel.fromQueryDocumentSnapshot(
       QueryDocumentSnapshot<Map<String, dynamic>> queryDocumentSnapshot) {
-    title = queryDocumentSnapshot.data()['title'];
-    uploadedBy = queryDocumentSnapshot.data()['uploadedBy'];
-    requiredAmount = queryDocumentSnapshot.data()['requiredAmount'];
-    collectedAmount = queryDocumentSnapshot.data()['collectedAmount'];
-    description = queryDocumentSnapshot.data()['description'];
-    needyPhoneNumber = queryDocumentSnapshot.data()['needyPhoneNumber'];
-    charityLocation = queryDocumentSnapshot.data()['charityLocation'];
-    donationId = queryDocumentSnapshot.data()['donationId'];
-    moderatorId = queryDocumentSnapshot.data()['moderatorId'];
-    donorsDonateAmount = queryDocumentSnapshot.data()['donorsDonateAmount'];
-    donorsName = queryDocumentSnapshot.data()['donorsName'];
-    imageUrl = queryDocumentSnapshot.data()['imageUrl'];
+    title = queryDocumentSnapshot.data()['title'] ?? "";
+    uploadedBy = queryDocumentSnapshot.data()['uploadedBy'] ?? "";
+    requiredAmount = queryDocumentSnapshot.data()['requiredAmount'] ?? -1;
+    collectedAmount = queryDocumentSnapshot.data()['collectedAmount'] ?? -1;
+    description = queryDocumentSnapshot.data()['description'] ?? "";
+    needyPhoneNumber = queryDocumentSnapshot.data()['needyPhoneNumber'] ?? "";
+    charityLocation = queryDocumentSnapshot.data()['charityLocation'] ?? "";
+    donationId = queryDocumentSnapshot.data()['donationId'] ?? "";
+    moderatorId = queryDocumentSnapshot.data()['moderatorId'] ?? "";
+    donorsDonateAmount =
+        queryDocumentSnapshot.data()['donorsDonateAmount'] ?? [];
+    donorsName = queryDocumentSnapshot.data()['donorsName'] ?? [];
+    imageUrl = queryDocumentSnapshot.data()['imageUrl'] ?? [];
   }
 }

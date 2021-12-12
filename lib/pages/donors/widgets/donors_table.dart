@@ -46,8 +46,20 @@ class DonorsTable extends StatelessWidget {
           ),
           TextField(
             controller: _textEditingController,
+            cursorColor: active,
             decoration: InputDecoration(
-                hintText: "Enter Donor Name", suffixIcon: Icon(Icons.search)),
+              hintText: "Enter Donor Name",
+              suffixIcon: Icon(
+                Icons.search,
+                color: active,
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: active),
+              ),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: active, width: 2),
+              ),
+            ),
           ),
           SizedBox(
             height: 20,
@@ -60,6 +72,7 @@ class DonorsTable extends StatelessWidget {
               columnSpacing: 12,
               horizontalMargin: 12,
               minWidth: 600,
+              dataRowHeight: 100,
               columns: [
                 DataColumn2(
                   label: Text(

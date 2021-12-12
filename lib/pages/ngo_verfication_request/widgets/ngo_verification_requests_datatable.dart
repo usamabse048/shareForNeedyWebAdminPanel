@@ -5,8 +5,8 @@ import 'package:flutter_web_admin_panel/constants/style.dart';
 import 'package:flutter_web_admin_panel/pages/ngo_detail_page.dart/ngo_detail_page.dart';
 import 'package:get/get.dart';
 
-class NgoTable extends StatelessWidget {
-  NgoTable({Key? key}) : super(key: key);
+class NgoVerificationRequestDataTable extends StatelessWidget {
+  NgoVerificationRequestDataTable({Key? key}) : super(key: key);
   final TextEditingController _textEditingController =
       new TextEditingController();
 
@@ -59,7 +59,8 @@ class NgoTable extends StatelessWidget {
             height: 20,
           ),
           Obx(() {
-            ngoController.bindSearchStream(_textEditingController.value.text);
+            ngoController.bindNgoVerificationListSearchStream(
+                _textEditingController.value.text);
 
             return DataTable2(
               columnSpacing: 12,
@@ -93,7 +94,7 @@ class NgoTable extends StatelessWidget {
                 ),
                 DataColumn(
                   label: Text(
-                    'Mod Email',
+                    'Status',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -105,20 +106,29 @@ class NgoTable extends StatelessWidget {
                 ),
               ],
               rows: List<DataRow>.generate(
-                ngoController.ngosList.length,
+                ngoController.verficationNgosList.length,
                 (index) => DataRow(
                   cells: [
+                    DataCell(Text(ngoController
+                        .verficationNgosList[index].ngoRegistrationNumber)),
                     DataCell(
-                      Text(ngoController.ngosList[index].ngoRegistrationNumber),
-                    ),
-                    DataCell(Text(ngoController.ngosList[index].ngoName)),
-                    DataCell(Text(ngoController.ngosList[index].moderatorName)),
+                        Text(ngoController.verficationNgosList[index].ngoName)),
+                    DataCell(Text(ngoController
+                        .verficationNgosList[index].moderatorName)),
+                    DataCell(Text(ngoController
+                        .verficationNgosList[index].moderatorPhoneNumber)),
                     DataCell(Text(
-                        ngoController.ngosList[index].moderatorPhoneNumber)),
-                    DataCell(
-                        Text(ngoController.ngosList[index].moderatorEmail)),
+                      ngoController.verficationNgosList[index].isVerified
+                          ? "Verified"
+                          : "Pending",
+                      style: TextStyle(
+                          color: ngoController
+                                  .verficationNgosList[index].isVerified
+                              ? Colors.green
+                              : Colors.red),
+                    )),
                     DataCell(ElevatedButton(
-                      style: ElevatedButton.styleFrom(primary: Colors.green),
+                      style: ElevatedButton.styleFrom(primary: Colors.red),
                       child: Text(
                         "View Details",
                       ),
@@ -127,8 +137,9 @@ class NgoTable extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => NgoDetailPage(
-                                      streamName: "allNgosStream",
-                                      ngoModel: ngoController.ngosList[index],
+                                      streamName: "verificationStream",
+                                      ngoModel: ngoController
+                                          .verficationNgosList[index],
                                       index: index,
                                     )));
                       },

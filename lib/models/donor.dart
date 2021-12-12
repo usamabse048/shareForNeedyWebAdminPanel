@@ -26,15 +26,15 @@ class DonorModel {
 
   DonorModel.fromDocumentSnapshot(
       QueryDocumentSnapshot<Map<String, dynamic>> documentSnapshot) {
-    uid = documentSnapshot.data()['uid'];
-    userName = documentSnapshot.data()['userName'];
-    userEmail = documentSnapshot.data()['userEmail'];
-    userPhoneNumber = documentSnapshot.data()['userPhoneNumber'];
-    userAccountTitle = documentSnapshot.data()['userAccountTitle'];
-    userAccountNumber = documentSnapshot.data()['userAccountNumber'];
-    fcmToken = documentSnapshot.data()['fcmToken'];
-    imageUrl = documentSnapshot.data()['imageUrl'];
-    bankName = documentSnapshot.data()['bankName'];
-    branchCode = documentSnapshot.data()['branchCode'];
+    uid = documentSnapshot.data()['uid'] ?? "";
+    userName = documentSnapshot.data()['userName'] ?? "";
+    userEmail = documentSnapshot.data()['userEmail'] ?? "";
+    userPhoneNumber = documentSnapshot.data()['userPhoneNumber'] ?? "";
+    userAccountTitle = documentSnapshot.data()['userAccountTitle'] ?? "";
+    userAccountNumber = documentSnapshot.data()['userAccountNumber'] ?? "";
+    fcmToken = documentSnapshot.data()['fcmToken'] ?? "";
+    imageUrl = documentSnapshot.data()['imageUrl'] ?? "";
+    bankName = documentSnapshot.data()['bankName'] ?? "";
+    branchCode = documentSnapshot.data()['branchCode'] ?? "";
   }
 }

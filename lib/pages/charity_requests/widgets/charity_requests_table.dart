@@ -50,8 +50,20 @@ class CharityRequestsTable extends StatelessWidget {
           ),
           TextField(
             controller: _textEditingController,
+            cursorColor: active,
             decoration: InputDecoration(
-                hintText: "Enter City Name", suffixIcon: Icon(Icons.search)),
+              hintText: "Enter City Name",
+              suffixIcon: Icon(
+                Icons.search,
+                color: active,
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: active),
+              ),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: active, width: 2),
+              ),
+            ),
           ),
           SizedBox(
             height: 20,
@@ -64,6 +76,7 @@ class CharityRequestsTable extends StatelessWidget {
               columnSpacing: 12,
               horizontalMargin: 12,
               minWidth: 600,
+              dataRowHeight: 100,
               columns: [
                 DataColumn2(
                   label: Text(
@@ -387,55 +400,6 @@ class CharityRequestsTable extends StatelessWidget {
               ),
             );
           })
-
-          /*
-          GetX<CharityRequestsController>(
-            init: Get.put(CharityRequestsController()),
-            builder: (CharityRequestsController charityRequestsController) {
-              return DataTable2(
-                columnSpacing: 12,
-                horizontalMargin: 12,
-                minWidth: 600,
-                columns: [
-                  DataColumn2(
-                    label: Text('Title'),
-                    size: ColumnSize.L,
-                  ),
-                  DataColumn(
-                    label: Text('Requied Amount'),
-                  ),
-                  DataColumn(
-                    label: Text('Collected Amount'),
-                  ),
-                  DataColumn(
-                    label: Text('NGO'),
-                  ),
-                  DataColumn(
-                    label: Text('City'),
-                  ),
-                ],
-                rows: List<DataRow>.generate(
-                  charityRequestsController.charityRequests.length,
-                  (index) => DataRow(
-                    cells: [
-                      DataCell(Text(charityRequestsController
-                          .charityRequests[index].title)),
-                      DataCell(Text(charityRequestsController
-                          .charityRequests[index].requiredAmount
-                          .toString())),
-                      DataCell(Text(charityRequestsController
-                          .charityRequests[index].collectedAmount
-                          .toString())),
-                      DataCell(Text(charityRequestsController
-                          .charityRequests[index].uploadedBy)),
-                      DataCell(Text(charityRequestsController
-                          .charityRequests[index].charityLocation)),
-                    ],
-                  ),
-                ),
-              );
-            },
-          )*/
         ],
       ),
     );
