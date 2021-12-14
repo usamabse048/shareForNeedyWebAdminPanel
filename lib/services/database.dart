@@ -3,6 +3,7 @@ import 'package:flutter_web_admin_panel/models/charity_request_model.dart';
 import 'package:flutter_web_admin_panel/models/donor.dart';
 
 import 'package:flutter_web_admin_panel/models/ngo_model.dart';
+import 'package:flutter_web_admin_panel/models/report_model.dart';
 
 class Database {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -206,6 +207,33 @@ class Database {
     }
   }
 
+  Stream<List<ReportModel>> allReportsNotResponded() {
+    return _firestore
+        .collection('ngo_reports')
+        .where('isResponded', isEqualTo: false)
+        .snapshots()
+        .map((QuerySnapshot<Map<String, dynamic>> querySnapshot) {
+      List<ReportModel> retval = [];
+      querySnapshot.docs.forEach((element) {
+        retval.add(ReportModel.fromQueryDocumentSnapshot(element));
+      });
+      return retval;
+    });
+  }
+
+  Future<void> dismissReport(String reportId) {
+    return _firestore
+        .collection('ngo_reports')
+        .doc(reportId)
+        .update({'isResponded': true}).then((value) {
+      print("report dismissed");
+      //return true;
+    }).catchError((error) {
+      print("Failed to update user: $error");
+      // return true;
+    });
+  }
+
   // search ngo verification list by query
 
   Stream<List<NgoModel>> searchUnverifieldNgoByTitle(String query) {
@@ -237,13 +265,38 @@ class Database {
     }
   }
 
-  Future<void> changeNgoStatus(String moderatorId) {
+  // full ngo  verification list
+  Stream<List<NgoModel>> getNgosVerficationList() {
     return _firestore
         .collection('moderators')
-        .doc(moderatorId)
-        .update({'isVerified': false})
-        .then((value) => print("NGO Status Upadated"))
-        .catchError((error) => print("Failed to update user: $error"));
+        .where('isVerified', isEqualTo: false)
+        .snapshots()
+        .map((QuerySnapshot<Map<String, dynamic>> querySnapshot) {
+      List<NgoModel> retval = [];
+      querySnapshot.docs.forEach((element) {
+        retval.add(NgoModel.fromQueryDocumentSnapshot(element));
+      });
+      print(retval.length);
+      return retval;
+    });
+  }
+
+  Future<void> changeNgoStatus(String moderatorId, bool currentStatus) {
+    if (currentStatus) {
+      return _firestore
+          .collection('moderators')
+          .doc(moderatorId)
+          .update({'isVerified': false})
+          .then((value) => print("NGO Status Upadated"))
+          .catchError((error) => print("Failed to update user: $error"));
+    } else {
+      return _firestore
+          .collection('moderators')
+          .doc(moderatorId)
+          .update({'isVerified': true})
+          .then((value) => print("NGO Status Upadated"))
+          .catchError((error) => print("Failed to update user: $error"));
+    }
   }
   // get charity requests with time stamp
 

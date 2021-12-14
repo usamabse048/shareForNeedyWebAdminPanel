@@ -7,6 +7,7 @@ import 'package:flutter_web_admin_panel/pages/ngo_detail_page.dart/widgets/ngo_i
 import 'package:flutter_web_admin_panel/pages/ngo_detail_page.dart/widgets/ngo_mod_info_card_large.dart';
 import 'package:flutter_web_admin_panel/pages/ngo_detail_page.dart/widgets/ngo_reg_cer_card_large.dart';
 import 'package:flutter_web_admin_panel/widgets/custom_text.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
 class NgoDetailPage extends StatelessWidget {
@@ -53,8 +54,8 @@ class NgoDetailPage extends StatelessWidget {
                                   ),
                                   ElevatedButton(
                                     onPressed: () {
-                                      ngoController
-                                          .changeNgoStatus(ngoModel.uid);
+                                      ngoController.changeNgoStatus(
+                                          ngoModel.uid, ngoModel.isVerified);
                                     },
                                     child: Text("Ban NGO"),
                                     style: ElevatedButton.styleFrom(
@@ -75,62 +76,17 @@ class NgoDetailPage extends StatelessWidget {
                                   ),
                                   ElevatedButton(
                                     onPressed: () {
-                                      //ngoController.changeNgoStatus(ngoModel.uid);
-                                    },
-                                    child: Text("Approve NGO"),
-                                    style: ElevatedButton.styleFrom(
-                                        primary: Colors.green),
-                                  )
-                                ],
-                              )
-                            ],
-                          ),
-                      ],
-                    );
-                  }
-                }),
-              if (streamName == "verificationStream")
-                Obx(() {
-                  if (ngoController.isLoading) {
-                    return Center(child: CircularProgressIndicator());
-                  } else {
-                    return Column(
-                      children: [
-                        if (ngoController.verficationNgosList[index].isVerified)
-                          Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Text("Do you want to Ban NGO?"),
-                                  SizedBox(
-                                    width: 20,
-                                  ),
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      ngoController
-                                          .changeNgoStatus(ngoModel.uid);
-                                    },
-                                    child: Text("Ban NGO"),
-                                    style: ElevatedButton.styleFrom(
-                                        primary: Colors.red),
-                                  )
-                                ],
-                              )
-                            ],
-                          ),
-                        if (!ngoController
-                            .verficationNgosList[index].isVerified)
-                          Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Text("Do you want to Approve NGO?"),
-                                  SizedBox(
-                                    width: 20,
-                                  ),
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      //ngoController.changeNgoStatus(ngoModel.uid);
+                                      Get.defaultDialog(
+                                          title: "Approve NGO",
+                                          middleText:
+                                              "Are you sure you want to Approve NGO?",
+                                          textConfirm: "Yes",
+                                          textCancel: "No",
+                                          onConfirm: () {
+                                            ngoController.changeNgoStatus(
+                                                ngoModel.uid,
+                                                ngoModel.isVerified);
+                                          });
                                     },
                                     child: Text("Approve NGO"),
                                     style: ElevatedButton.styleFrom(
@@ -162,8 +118,8 @@ class NgoDetailPage extends StatelessWidget {
                                   ),
                                   ElevatedButton(
                                     onPressed: () {
-                                      ngoController
-                                          .changeNgoStatus(ngoModel.uid);
+                                      ngoController.changeNgoStatus(
+                                          ngoModel.uid, ngoModel.isVerified);
                                     },
                                     child: Text("Ban NGO"),
                                     style: ElevatedButton.styleFrom(
@@ -184,7 +140,8 @@ class NgoDetailPage extends StatelessWidget {
                                   ),
                                   ElevatedButton(
                                     onPressed: () {
-                                      //ngoController.changeNgoStatus(ngoModel.uid);
+                                      ngoController.changeNgoStatus(
+                                          ngoModel.uid, ngoModel.isVerified);
                                     },
                                     child: Text("Approve NGO"),
                                     style: ElevatedButton.styleFrom(

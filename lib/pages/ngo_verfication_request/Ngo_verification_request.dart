@@ -13,11 +13,7 @@ class NGOVerificationRequestsPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.all(24),
-          child: Column(
-            children: [
-              NgoVerificationRequestDataTable(),
-            ],
-          ),
+          child: NgoVerificationRequestDataTable(),
         ),
       ),
     );

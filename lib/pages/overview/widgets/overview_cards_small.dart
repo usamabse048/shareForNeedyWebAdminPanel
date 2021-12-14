@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web_admin_panel/pages/overview/widgets/info_card_small.dart';
+import 'package:flutter_web_admin_panel/constants/controllers.dart';
+
+import 'package:flutter_web_admin_panel/pages/donors/donors_page.dart';
+import 'package:flutter_web_admin_panel/pages/ngo_verfication_request/Ngo_verification_request.dart';
+import 'package:flutter_web_admin_panel/pages/overview/widgets/info_card.dart';
+
+import 'package:flutter_web_admin_panel/pages/registered_ngos/registered_ngos.dart';
+import 'package:flutter_web_admin_panel/pages/reports/reports_page.dart';
+import 'package:get/get.dart';
 
 class OverviewCardsSmallScreen extends StatelessWidget {
   const OverviewCardsSmallScreen({Key? key}) : super(key: key);
@@ -8,40 +16,98 @@ class OverviewCardsSmallScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     double _width = MediaQuery.of(context).size.width;
     return Container(
-      height: 400,
-      child: Column(
-        children: [
-          InfoCardSmall(
-              title: "Registered NGOs",
-              value: "10",
-              topColor: Colors.deepOrange,
-              onTap: () {}),
-          SizedBox(
-            height: _width / 64,
-          ),
-          InfoCardSmall(
-              title: "Active Charities",
-              value: "14",
-              topColor: Colors.green,
-              onTap: () {}),
-          SizedBox(
-            height: _width / 64,
-          ),
-          InfoCardSmall(
-              title: "Total Donors",
-              value: "32",
-              topColor: Colors.blueGrey,
-              onTap: () {}),
-          SizedBox(
-            height: _width / 64,
-          ),
-          InfoCardSmall(
-              title: "NGO Requests",
-              value: "2",
-              topColor: Colors.pink,
-              onTap: () {}),
-        ],
-      ),
+      height: 1500,
+      child: Obx(() => Column(
+            children: [
+              InfoCard(
+                  title: "All NGOs",
+                  value: ngoController.allNgosList.length.toString(),
+                  topColor: Color(0xFF6AD47F),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => RegisteredNgosPage()));
+                  }),
+              SizedBox(
+                height: _width / 64,
+              ),
+              InfoCard(
+                  title: "NGO Requests",
+                  value: ngoController.verficationNgosList.length.toString(),
+                  topColor: Color(0xFFFFB2A8),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => (NGOVerificationRequestsPage()),
+                      ),
+                    );
+                  }),
+              SizedBox(
+                height: _width / 64,
+              ),
+              InfoCard(
+                  title: "Registered Ngos",
+                  value: ngoController.verficationNgosList.length.toString(),
+                  topColor: Colors.lightBlue,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => (NGOVerificationRequestsPage()),
+                      ),
+                    );
+                  }),
+              SizedBox(
+                height: _width / 64,
+              ),
+              InfoCard(
+                  title: "Charity Requests",
+                  value: charityRequestsController.allCharityRequestsList.length
+                      .toString(),
+                  topColor: Color(0xFFF03560),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => (DonorsPage()),
+                      ),
+                    );
+                  }),
+              SizedBox(
+                height: _width / 64,
+              ),
+              InfoCard(
+                  title: "All Donors",
+                  value: donorsController.allDonorsList.length.toString(),
+                  topColor: Colors.brown,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => (DonorsPage()),
+                      ),
+                    );
+                  }),
+              SizedBox(
+                height: _width / 64,
+              ),
+              InfoCard(
+                  title: "Reports",
+                  value: reportsController.allReportsNotRespondedList.length
+                      .toString(),
+                  topColor: Colors.teal,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => (ReportsPage()),
+                      ),
+                    );
+                  }),
+            ],
+          )),
     );
   }
 }

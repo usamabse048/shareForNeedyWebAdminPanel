@@ -87,13 +87,19 @@ class NgoTable extends StatelessWidget {
                 ),
                 DataColumn(
                   label: Text(
-                    'Mod Phone',
+                    'Mod Email',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
                 DataColumn(
                   label: Text(
-                    'Mod Email',
+                    'Status',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                DataColumn(
+                  label: Text(
+                    'Details',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -113,26 +119,66 @@ class NgoTable extends StatelessWidget {
                     ),
                     DataCell(Text(ngoController.ngosList[index].ngoName)),
                     DataCell(Text(ngoController.ngosList[index].moderatorName)),
-                    DataCell(Text(
-                        ngoController.ngosList[index].moderatorPhoneNumber)),
                     DataCell(
                         Text(ngoController.ngosList[index].moderatorEmail)),
-                    DataCell(ElevatedButton(
-                      style: ElevatedButton.styleFrom(primary: Colors.green),
-                      child: Text(
-                        "View Details",
-                      ),
-                      onPressed: () {
-                        Navigator.push(
+                    DataCell(ngoController.ngosList[index].isVerified
+                        ? Text(
+                            "Verfied",
+                            style: TextStyle(color: active),
+                          )
+                        : Text(
+                            "Pending",
+                            style: TextStyle(color: Colors.red),
+                          )),
+                    DataCell(
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(primary: Colors.green),
+                        child: Text(
+                          "View Details",
+                        ),
+                        onPressed: () {
+                          Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => NgoDetailPage(
-                                      streamName: "allNgosStream",
-                                      ngoModel: ngoController.ngosList[index],
-                                      index: index,
-                                    )));
-                      },
-                    )),
+                              builder: (context) => NgoDetailPage(
+                                streamName: "allNgosStream",
+                                ngoModel: ngoController.ngosList[index],
+                                index: index,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    DataCell(
+                      ngoController.isLoading
+                          ? CircularProgressIndicator(
+                              color: active,
+                            )
+                          : ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  primary:
+                                      ngoController.ngosList[index].isVerified
+                                          ? Colors.red
+                                          : active),
+                              child: ngoController.ngosList[index].isVerified
+                                  ? Text(
+                                      "Ban NGO",
+                                    )
+                                  : Text(
+                                      "Approve Ngo",
+                                    ),
+                              onPressed: () {
+                                ngoController.changeNgoStatus(
+                                    ngoController.ngosList[index].uid,
+                                    ngoController.ngosList[index].isVerified);
+
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content: Text('Ngo Status Updated')));
+                              },
+                            ),
+                    ),
                   ],
                 ),
               ),

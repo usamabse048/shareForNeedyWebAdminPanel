@@ -16,12 +16,15 @@ class CharityRequestsController extends GetxController {
   RxList<CharityRequestModel> charityRequestsWithRespectToNgoList =
       RxList<CharityRequestModel>();
 
+  bool isDeletingCharityRequest = false;
   void bindSearchStream(String query) {
     charityRequestsList.bindStream(_database.searchCharityByCity(query));
   }
 
   void deleteCharityRequests(String charityId, String moderatorId) {
+    isDeletingCharityRequest = true;
     Database().deleteCharityRequest(charityId, moderatorId);
+    isDeletingCharityRequest = false;
   }
 
   void charityRequestsWithRespectToNGO(String moderatorId) {

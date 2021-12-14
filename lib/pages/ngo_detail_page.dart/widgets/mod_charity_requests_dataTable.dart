@@ -246,7 +246,7 @@ class ModCharityRequestTable extends StatelessWidget {
                                             child: charityRequestsController
                                                         .charityRequestsWithRespectToNgoList[
                                                             index]
-                                                        .donorsName
+                                                        .donationTransactions
                                                         .length ==
                                                     0
                                                 ? Container(
@@ -286,27 +286,18 @@ class ModCharityRequestTable extends StatelessWidget {
                                                       charityRequestsController
                                                           .charityRequestsWithRespectToNgoList[
                                                               index]
-                                                          .donorsName
+                                                          .donationTransactions
                                                           .length,
                                                       (donorIndex) => DataRow(
                                                         cells: [
                                                           DataCell(
                                                             Text(
-                                                              charityRequestsController
-                                                                      .charityRequestsWithRespectToNgoList[
-                                                                          index]
-                                                                      .donorsName[
-                                                                  donorIndex],
+                                                              "under construction",
                                                             ),
                                                           ),
                                                           DataCell(
                                                             Text(
-                                                              charityRequestsController
-                                                                  .charityRequestsWithRespectToNgoList[
-                                                                      index]
-                                                                  .donorsDonateAmount[
-                                                                      donorIndex]
-                                                                  .toString(),
+                                                              "under construction",
                                                             ),
                                                           ),
                                                         ],

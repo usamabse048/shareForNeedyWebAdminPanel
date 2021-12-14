@@ -298,7 +298,7 @@ class CharityRequestsTable extends StatelessWidget {
                                                   child: charityRequestsController
                                                               .charityRequests[
                                                                   index]
-                                                              .donorsName
+                                                              .donationTransactions
                                                               .length ==
                                                           0
                                                       ? Container(
@@ -340,27 +340,19 @@ class CharityRequestsTable extends StatelessWidget {
                                                             charityRequestsController
                                                                 .charityRequests[
                                                                     index]
-                                                                .donorsName
+                                                                .donationTransactions
                                                                 .length,
                                                             (donorIndex) =>
                                                                 DataRow(
                                                               cells: [
                                                                 DataCell(
                                                                   Text(
-                                                                    charityRequestsController
-                                                                        .charityRequests[
-                                                                            index]
-                                                                        .donorsName[donorIndex],
+                                                                    "under construction",
                                                                   ),
                                                                 ),
                                                                 DataCell(
                                                                   Text(
-                                                                    charityRequestsController
-                                                                        .charityRequests[
-                                                                            index]
-                                                                        .donorsDonateAmount[
-                                                                            donorIndex]
-                                                                        .toString(),
+                                                                    "under construction",
                                                                   ),
                                                                 ),
                                                               ],
@@ -378,23 +370,28 @@ class CharityRequestsTable extends StatelessWidget {
                                 ));
                       },
                     )),
-                    DataCell(ElevatedButton(
-                      style: ElevatedButton.styleFrom(primary: Colors.red),
-                      child: Text(
-                        "Delete",
-                      ),
-                      onPressed: () {
-                        print(charityRequestsController
-                            .charityRequests[index].donationId);
-                        print(charityRequestsController
-                            .charityRequests[index].moderatorId);
-                        charityRequestsController.deleteCharityRequests(
-                            charityRequestsController
-                                .charityRequests[index].donationId,
-                            charityRequestsController
-                                .charityRequests[index].moderatorId);
-                      },
-                    )),
+                    DataCell(charityRequestsController.isDeletingCharityRequest
+                        ? CircularProgressIndicator(
+                            color: active,
+                          )
+                        : ElevatedButton(
+                            style:
+                                ElevatedButton.styleFrom(primary: Colors.red),
+                            child: Text(
+                              "Delete",
+                            ),
+                            onPressed: () {
+                              charityRequestsController.deleteCharityRequests(
+                                  charityRequestsController
+                                      .charityRequests[index].donationId,
+                                  charityRequestsController
+                                      .charityRequests[index].moderatorId);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text('Charity Request Deleted')),
+                              );
+                            },
+                          )),
                   ],
                 ),
               ),

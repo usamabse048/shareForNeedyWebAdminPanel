@@ -24,6 +24,7 @@ class InfoCardSmall extends StatelessWidget {
       onTap: onTap,
       child: Container(
         padding: EdgeInsets.all(24),
+        height: 40,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(8),

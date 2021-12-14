@@ -7,12 +7,11 @@ import 'package:flutter_web_admin_panel/controllers/donors_controller.dart';
 import 'package:flutter_web_admin_panel/controllers/menu_controller.dart';
 import 'package:flutter_web_admin_panel/controllers/navigation_controller.dart';
 import 'package:flutter_web_admin_panel/controllers/ngo_controller.dart';
+import 'package:flutter_web_admin_panel/controllers/reports_controller.dart';
 import 'package:flutter_web_admin_panel/pages/404/error_page.dart';
 import 'package:flutter_web_admin_panel/pages/authentication/authentication.dart';
-
 import 'package:flutter_web_admin_panel/pages/overview/overview.dart';
 import 'package:flutter_web_admin_panel/routing/routes.dart';
-
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/instance_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -23,6 +22,7 @@ void main() async {
   Get.put(CharityRequestsController());
   Get.put(DonorsController());
   Get.put(NgoController());
+  Get.put(ReportsController());
 
   Get.put(MenuController());
   Get.put(NavigationController());

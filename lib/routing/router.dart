@@ -4,7 +4,7 @@ import 'package:flutter_web_admin_panel/pages/donors/donors_page.dart';
 import 'package:flutter_web_admin_panel/pages/ngo_verfication_request/Ngo_verification_request.dart';
 import 'package:flutter_web_admin_panel/pages/overview/overview.dart';
 import 'package:flutter_web_admin_panel/pages/registered_ngos/registered_ngos.dart';
-import 'package:flutter_web_admin_panel/pages/reports/reports.dart';
+import 'package:flutter_web_admin_panel/pages/reports/reports_page.dart';
 import 'package:flutter_web_admin_panel/routing/routes.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {

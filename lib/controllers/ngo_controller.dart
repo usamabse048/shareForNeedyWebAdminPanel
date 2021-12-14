@@ -11,6 +11,7 @@ class NgoController extends GetxController {
   RxList<NgoModel> ngosList = RxList<NgoModel>();
   RxList<NgoModel> allNgosList = RxList<NgoModel>();
   RxList<NgoModel> verficationNgosList = RxList<NgoModel>();
+  RxList<NgoModel> allVerficationNgosList = RxList<NgoModel>();
 
   // List<NgoModel> get charityRequests => ngosList.value;
   // List<NgoModel> get allNgos => allNgosList.value;
@@ -19,9 +20,9 @@ class NgoController extends GetxController {
     ngosList.bindStream(_database.searchNgoByTitle(query));
   }
 
-  void changeNgoStatus(String moderatorId) async {
+  void changeNgoStatus(String moderatorId, bool currentStatus) async {
     isLoading = true;
-    await _database.changeNgoStatus(moderatorId);
+    await _database.changeNgoStatus(moderatorId, currentStatus);
     isLoading = false;
   }
 
@@ -33,6 +34,7 @@ class NgoController extends GetxController {
   @override
   void onInit() {
     allNgosList.bindStream(_database.getNgos());
+    allVerficationNgosList.bindStream(_database.getNgosVerficationList());
     super.onInit();
   }
 }

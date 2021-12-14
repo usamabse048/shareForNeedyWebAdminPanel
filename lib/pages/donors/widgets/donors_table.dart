@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web_admin_panel/constants/controllers.dart';
 import 'package:flutter_web_admin_panel/constants/style.dart';
 import 'package:flutter_web_admin_panel/widgets/custom_text.dart';
+import 'package:flutter_web_admin_panel/widgets/notification_response_form.dart';
 import 'package:get/get.dart';
 
 class DonorsTable extends StatelessWidget {
@@ -111,6 +112,12 @@ class DonorsTable extends StatelessWidget {
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
+                DataColumn(
+                  label: Text(
+                    'Notify',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
               ],
               rows: List<DataRow>.generate(
                 donorsController.donors.length,
@@ -125,6 +132,36 @@ class DonorsTable extends StatelessWidget {
                         Text(donorsController.donors[index].userAccountNumber)),
                     DataCell(
                         Text(donorsController.donors[index].userAccountTitle)),
+                    DataCell(
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(primary: active),
+                        child: Text(
+                          "Notify",
+                        ),
+                        onPressed: () {
+                          print(
+                              "fcm token in donor table ${donorsController.donors[index].fcmToken}");
+                          showDialog(
+                            context: context,
+                            builder: (_) => AlertDialog(
+                              title: Center(
+                                child: CustomText(
+                                    text: "Notify",
+                                    size: 24,
+                                    color: active,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              content: SingleChildScrollView(
+                                child: ResponseForm(
+                                  recieverToken:
+                                      donorsController.donors[index].fcmToken,
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
                   ],
                 ),
               ),

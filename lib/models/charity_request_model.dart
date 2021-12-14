@@ -9,10 +9,10 @@ class CharityRequestModel {
   late String charityLocation;
   late int collectedAmount;
   late String description;
-  late List<dynamic> donorsName;
-  late List<dynamic> donorsDonateAmount;
+
   late List<dynamic> imageUrl;
   late String moderatorId;
+  late List<dynamic> donationTransactions;
 
   CharityRequestModel({
     required this.title,
@@ -23,8 +23,7 @@ class CharityRequestModel {
     required this.donationId,
     required this.moderatorId,
     required this.charityLocation,
-    required this.donorsDonateAmount,
-    required this.donorsName,
+    required this.donationTransactions,
     required this.imageUrl,
     required this.needyPhoneNumber,
   });
@@ -40,9 +39,8 @@ class CharityRequestModel {
     charityLocation = queryDocumentSnapshot.data()['charityLocation'] ?? "";
     donationId = queryDocumentSnapshot.data()['donationId'] ?? "";
     moderatorId = queryDocumentSnapshot.data()['moderatorId'] ?? "";
-    donorsDonateAmount =
-        queryDocumentSnapshot.data()['donorsDonateAmount'] ?? [];
-    donorsName = queryDocumentSnapshot.data()['donorsName'] ?? [];
     imageUrl = queryDocumentSnapshot.data()['imageUrl'] ?? [];
+    donationTransactions =
+        queryDocumentSnapshot.data()['donationTransactions'] ?? [];
   }
 }
