@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web_admin_panel/constants/controllers.dart';
 import 'package:flutter_web_admin_panel/helpers/responsiveness.dart';
 import 'package:flutter_web_admin_panel/models/ngo_model.dart';
 import 'package:flutter_web_admin_panel/pages/ngo_detail_page.dart/widgets/mod_charity_requests_dataTable.dart';
 import 'package:flutter_web_admin_panel/pages/ngo_detail_page.dart/widgets/ngo_info_card_large.dart';
+import 'package:flutter_web_admin_panel/pages/ngo_detail_page.dart/widgets/ngo_info_card_small.dart';
 import 'package:flutter_web_admin_panel/pages/ngo_detail_page.dart/widgets/ngo_mod_info_card_large.dart';
+import 'package:flutter_web_admin_panel/pages/ngo_detail_page.dart/widgets/ngo_mod_info_card_small.dart';
 import 'package:flutter_web_admin_panel/pages/ngo_detail_page.dart/widgets/ngo_reg_cer_card_large.dart';
 import 'package:flutter_web_admin_panel/widgets/custom_text.dart';
-import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 
 class NgoDetailPage extends StatelessWidget {
   final NgoModel ngoModel;
@@ -36,125 +35,6 @@ class NgoDetailPage extends StatelessWidget {
                 : CrossAxisAlignment.center,
             children: [
               SizedBox(height: 40),
-              if (streamName == "allNgosStream")
-                Obx(() {
-                  if (ngoController.isLoading) {
-                    return Center(child: CircularProgressIndicator());
-                  } else {
-                    return Column(
-                      children: [
-                        if (ngoController.ngosList[index].isVerified)
-                          Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Text("Do you want to Ban NGO?"),
-                                  SizedBox(
-                                    width: 20,
-                                  ),
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      ngoController.changeNgoStatus(
-                                          ngoModel.uid, ngoModel.isVerified);
-                                    },
-                                    child: Text("Ban NGO"),
-                                    style: ElevatedButton.styleFrom(
-                                        primary: Colors.red),
-                                  )
-                                ],
-                              )
-                            ],
-                          ),
-                        if (!ngoController.ngosList[index].isVerified)
-                          Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Text("Do you want to Approve NGO?"),
-                                  SizedBox(
-                                    width: 20,
-                                  ),
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      Get.defaultDialog(
-                                          title: "Approve NGO",
-                                          middleText:
-                                              "Are you sure you want to Approve NGO?",
-                                          textConfirm: "Yes",
-                                          textCancel: "No",
-                                          onConfirm: () {
-                                            ngoController.changeNgoStatus(
-                                                ngoModel.uid,
-                                                ngoModel.isVerified);
-                                          });
-                                    },
-                                    child: Text("Approve NGO"),
-                                    style: ElevatedButton.styleFrom(
-                                        primary: Colors.green),
-                                  )
-                                ],
-                              )
-                            ],
-                          ),
-                      ],
-                    );
-                  }
-                }),
-              if (streamName == "registeredStream")
-                Obx(() {
-                  if (ngoController.isLoading) {
-                    return Center(child: CircularProgressIndicator());
-                  } else {
-                    return Column(
-                      children: [
-                        if (ngoController.ngosList[index].isVerified)
-                          Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Text("Do you want to Ban NGO?"),
-                                  SizedBox(
-                                    width: 20,
-                                  ),
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      ngoController.changeNgoStatus(
-                                          ngoModel.uid, ngoModel.isVerified);
-                                    },
-                                    child: Text("Ban NGO"),
-                                    style: ElevatedButton.styleFrom(
-                                        primary: Colors.red),
-                                  )
-                                ],
-                              )
-                            ],
-                          ),
-                        if (!ngoController.ngosList[index].isVerified)
-                          Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Text("Do you want to Approve NGO?"),
-                                  SizedBox(
-                                    width: 20,
-                                  ),
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      ngoController.changeNgoStatus(
-                                          ngoModel.uid, ngoModel.isVerified);
-                                    },
-                                    child: Text("Approve NGO"),
-                                    style: ElevatedButton.styleFrom(
-                                        primary: Colors.green),
-                                  )
-                                ],
-                              )
-                            ],
-                          ),
-                      ],
-                    );
-                  }
-                }),
               SizedBox(
                 height: 20,
               ),
@@ -186,6 +66,15 @@ class NgoDetailPage extends StatelessWidget {
                             ngoModel: ngoModel,
                             checkScreen: false,
                           ),
+                        ],
+                      ),
+                    if (ResponsiveWidget.isSmallScreen(context))
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          NgoInfoCardSmall(ngoModel: ngoModel),
+                          SizedBox(height: 20),
+                          NgoModInfoCardSmall(ngoModel: ngoModel)
                         ],
                       ),
                   ],

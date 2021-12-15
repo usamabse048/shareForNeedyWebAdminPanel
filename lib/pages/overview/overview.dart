@@ -4,6 +4,8 @@ import 'package:flutter_web_admin_panel/helpers/responsiveness.dart';
 import 'package:flutter_web_admin_panel/pages/overview/widgets/overview_cards_large.dart';
 import 'package:flutter_web_admin_panel/pages/overview/widgets/overview_cards_medium.dart';
 import 'package:flutter_web_admin_panel/pages/overview/widgets/overview_cards_small.dart';
+import 'package:flutter_web_admin_panel/widgets/custom_text.dart';
+import 'dart:html' as html;
 
 class OverviewPage extends StatelessWidget {
   const OverviewPage({Key? key}) : super(key: key);
@@ -60,6 +62,155 @@ class OverviewPage extends StatelessWidget {
                           OverviewCardsMediumScreen()
                         else
                           OverviewCardsSmallScreen(),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        CustomText(
+                            text: "Important Sources",
+                            size: 24,
+                            color: active,
+                            fontWeight: FontWeight.bold),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        CustomText(
+                            text:
+                                "Kindly use these sources to verify/approve NGOs on Share For Needy",
+                            size: 24,
+                            color: active,
+                            fontWeight: FontWeight.bold),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        ResponsiveWidget.isSmallScreen(context)
+                            ? Column(
+                                children: [
+                                  ElevatedButton(
+                                      onPressed: () {
+                                        html.window.open(
+                                            "https://swd.punjab.gov.pk/list_of_ngos",
+                                            "Punjab Welfare",
+                                            "_blank");
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                          primary: active),
+                                      child: Text(
+                                          "Punjab Social Welfare Department")),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  ElevatedButton(
+                                      onPressed: () {
+                                        html.window.open(
+                                            "https://ictadministration.gov.pk/wp-content/uploads/List-of-NGOs.pdf",
+                                            "Islamabad Welfare",
+                                            "_blank");
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                          primary: active),
+                                      child: Text("Islamabad Registred NGOs")),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  ElevatedButton(
+                                      onPressed: () {
+                                        html.window.open(
+                                            "https://home.sindh.gov.pk/ngo-madarris",
+                                            "Sindh Welfare",
+                                            "_blank");
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                          primary: active),
+                                      child: Text(
+                                          "Sindh Government Home Department")),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  ElevatedButton(
+                                      onPressed: () {
+                                        html.window.open(
+                                            "https://www.swd.balochistan.gov.pk/registered-ngos.html",
+                                            "Sindh Welfare",
+                                            "_blank");
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                          primary: active),
+                                      child: Text(
+                                          "Balochistan Social Welfare Department")),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                ],
+                              )
+                            : Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      ElevatedButton(
+                                          onPressed: () {
+                                            html.window.open(
+                                                "https://swd.punjab.gov.pk/list_of_ngos",
+                                                "Punjab Welfare",
+                                                "_blank");
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                              primary: active),
+                                          child: Text(
+                                              "Punjab Social Welfare Department")),
+                                      SizedBox(
+                                        width: 20,
+                                      ),
+                                      ElevatedButton(
+                                          onPressed: () {
+                                            html.window.open(
+                                                "https://ictadministration.gov.pk/wp-content/uploads/List-of-NGOs.pdf",
+                                                "Islamabad Welfare",
+                                                "_blank");
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                              primary: active),
+                                          child:
+                                              Text("Islamabad Registred NGOs")),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      ElevatedButton(
+                                          onPressed: () {
+                                            html.window.open(
+                                                "https://home.sindh.gov.pk/ngo-madarris",
+                                                "Sindh Welfare",
+                                                "_blank");
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                              primary: active),
+                                          child: Text(
+                                              "Sindh Government Home Department")),
+                                      SizedBox(
+                                        width: 20,
+                                      ),
+                                      ElevatedButton(
+                                          onPressed: () {
+                                            html.window.open(
+                                                "https://www.swd.balochistan.gov.pk/registered-ngos.html",
+                                                "Sindh Welfare",
+                                                "_blank");
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                              primary: active),
+                                          child: Text(
+                                              "Balochistan Social Welfare Department")),
+                                    ],
+                                  ),
+                                ],
+                              ),
                       ],
                     ),
                   ),

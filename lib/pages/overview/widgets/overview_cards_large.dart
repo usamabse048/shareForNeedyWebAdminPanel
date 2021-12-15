@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_admin_panel/constants/controllers.dart';
+import 'package:flutter_web_admin_panel/pages/banned_donors/banned_donors.dart';
 import 'package:flutter_web_admin_panel/pages/charity_requests/charity_requests.dart';
 import 'package:flutter_web_admin_panel/pages/donors/donors_page.dart';
 import 'package:flutter_web_admin_panel/pages/ngo_verfication_request/Ngo_verification_request.dart';
@@ -51,14 +52,14 @@ class OverviewCardsLargeScreen extends StatelessWidget {
             ),
             Obx(
               () => InfoCard(
-                  title: "Registered Ngos",
-                  value: ngoController.verficationNgosList.length.toString(),
+                  title: "Banned Donors",
+                  value: donorsController.allBannedDonorsList.length.toString(),
                   topColor: Colors.lightBlue,
                   onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => (NGOVerificationRequestsPage()),
+                        builder: (context) => (BannedDonorsPage()),
                       ),
                     );
                   }),

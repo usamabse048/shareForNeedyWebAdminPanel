@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class DonationTransaction {
   late String charityRequestId;
   late String charityRequestTitle;
-  late String donationAmount;
+  late double donationAmount;
   late String donorId;
   late String donorName;
   late String recieverId;
@@ -29,5 +29,16 @@ class DonationTransaction {
     donorName = queryDocumentSnapshot.data()['donorName'] ?? "";
     recieverId = queryDocumentSnapshot.data()['recieverId'] ?? "";
     recieverName = queryDocumentSnapshot.data()['recieverName'] ?? "";
+  }
+
+  factory DonationTransaction.fromMap(Map<String, dynamic> map) {
+    return DonationTransaction(
+        charityRequestId: map['charityRequestId'],
+        charityRequestTitle: map['charityRequestTitle'],
+        donationAmount: map['donationAmount'],
+        donorId: map['donorId'],
+        donorName: map['donorName'],
+        recieverId: map['recieverId'],
+        recieverName: map['recieverName']);
   }
 }

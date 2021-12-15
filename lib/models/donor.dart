@@ -11,18 +11,21 @@ class DonorModel {
   late String imageUrl;
   late String bankName;
   late String branchCode;
+  late bool isVerified;
 
-  DonorModel(
-      {required this.uid,
-      required this.userName,
-      required this.userEmail,
-      required this.userPhoneNumber,
-      required this.userAccountTitle,
-      required this.userAccountNumber,
-      required this.fcmToken,
-      required this.imageUrl,
-      required this.bankName,
-      required this.branchCode});
+  DonorModel({
+    required this.uid,
+    required this.userName,
+    required this.userEmail,
+    required this.userPhoneNumber,
+    required this.userAccountTitle,
+    required this.userAccountNumber,
+    required this.fcmToken,
+    required this.imageUrl,
+    required this.bankName,
+    required this.branchCode,
+    required this.isVerified,
+  });
 
   DonorModel.fromDocumentSnapshot(
       QueryDocumentSnapshot<Map<String, dynamic>> documentSnapshot) {
@@ -36,5 +39,6 @@ class DonorModel {
     imageUrl = documentSnapshot.data()['imageUrl'] ?? "";
     bankName = documentSnapshot.data()['bankName'] ?? "";
     branchCode = documentSnapshot.data()['branchCode'] ?? "";
+    isVerified = documentSnapshot.data()['isVerified'] ?? true;
   }
 }

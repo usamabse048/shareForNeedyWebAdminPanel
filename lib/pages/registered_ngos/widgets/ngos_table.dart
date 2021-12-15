@@ -2,6 +2,7 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_admin_panel/constants/controllers.dart';
 import 'package:flutter_web_admin_panel/constants/style.dart';
+import 'package:flutter_web_admin_panel/helpers/progress_dialog_builder.dart';
 import 'package:flutter_web_admin_panel/pages/ngo_detail_page.dart/ngo_detail_page.dart';
 import 'package:get/get.dart';
 
@@ -124,7 +125,7 @@ class NgoTable extends StatelessWidget {
                     DataCell(ngoController.ngosList[index].isVerified
                         ? Text(
                             "Verfied",
-                            style: TextStyle(color: active),
+                            style: TextStyle(color: Colors.green),
                           )
                         : Text(
                             "Pending",
@@ -132,7 +133,7 @@ class NgoTable extends StatelessWidget {
                           )),
                     DataCell(
                       ElevatedButton(
-                        style: ElevatedButton.styleFrom(primary: Colors.green),
+                        style: ElevatedButton.styleFrom(primary: active),
                         child: Text(
                           "View Details",
                         ),
@@ -166,16 +167,58 @@ class NgoTable extends StatelessWidget {
                                       "Ban NGO",
                                     )
                                   : Text(
-                                      "Approve Ngo",
+                                      "Approve NGO",
                                     ),
                               onPressed: () {
-                                ngoController.changeNgoStatus(
-                                    ngoController.ngosList[index].uid,
-                                    ngoController.ngosList[index].isVerified);
-
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                        content: Text('Ngo Status Updated')));
+                                if (ngoController.ngosList[index].isVerified) {
+                                  Get.defaultDialog(
+                                    title: "Ban NGO",
+                                    textConfirm: "Yes",
+                                    textCancel: "No",
+                                    buttonColor: active,
+                                    cancelTextColor: Colors.black,
+                                    confirmTextColor: Colors.white,
+                                    middleText:
+                                        "Are you sure to you want to Ban NGO?",
+                                    onConfirm: () {
+                                      ngoController.changeNgoStatus(
+                                          ngoController.ngosList[index].uid,
+                                          ngoController
+                                              .ngosList[index].isVerified);
+                                      Get.back();
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                          content: Text('Ngo Status Updated'),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                } else {
+                                  Get.defaultDialog(
+                                    title: "Approve NGO",
+                                    textConfirm: "Yes",
+                                    textCancel: "No",
+                                    buttonColor: active,
+                                    cancelTextColor: Colors.black,
+                                    confirmTextColor: Colors.white,
+                                    middleText:
+                                        "Are you sure to you want to Approve NGO?",
+                                    onConfirm: () {
+                                      ngoController.changeNgoStatus(
+                                          ngoController.ngosList[index].uid,
+                                          ngoController
+                                              .ngosList[index].isVerified);
+                                      Get.back();
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                          content: Text('Ngo Status Updated'),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                }
                               },
                             ),
                     ),

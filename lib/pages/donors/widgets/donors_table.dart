@@ -96,25 +96,19 @@ class DonorsTable extends StatelessWidget {
                 ),
                 DataColumn(
                   label: Text(
-                    'Bank Name',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ),
-                DataColumn(
-                  label: Text(
-                    'Bank Account Number',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ),
-                DataColumn(
-                  label: Text(
-                    'Bank Account Title',
+                    'Status',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
                 DataColumn(
                   label: Text(
                     'Notify',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                DataColumn(
+                  label: Text(
+                    'Action',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -127,11 +121,17 @@ class DonorsTable extends StatelessWidget {
                     DataCell(
                         Text(donorsController.donors[index].userPhoneNumber)),
                     DataCell(Text(donorsController.donors[index].userEmail)),
-                    DataCell(Text(donorsController.donors[index].bankName)),
                     DataCell(
-                        Text(donorsController.donors[index].userAccountNumber)),
-                    DataCell(
-                        Text(donorsController.donors[index].userAccountTitle)),
+                      donorsController.donors[index].isVerified
+                          ? Text(
+                              "Active",
+                              style: TextStyle(color: Colors.green),
+                            )
+                          : Text(
+                              "banned",
+                              style: TextStyle(color: Colors.red),
+                            ),
+                    ),
                     DataCell(
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(primary: active),
@@ -161,6 +161,77 @@ class DonorsTable extends StatelessWidget {
                           );
                         },
                       ),
+                    ),
+                    DataCell(
+                      donorsController.isDonorStatusChanging
+                          ? CircularProgressIndicator(
+                              color: active,
+                            )
+                          : ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  primary:
+                                      donorsController.donors[index].isVerified
+                                          ? Colors.red
+                                          : active),
+                              child: donorsController.donors[index].isVerified
+                                  ? Text(
+                                      "Ban Donor",
+                                    )
+                                  : Text(
+                                      "Un Ban Donor",
+                                    ),
+                              onPressed: () {
+                                if (donorsController.donors[index].isVerified) {
+                                  Get.defaultDialog(
+                                    title: "Ban Donor",
+                                    textConfirm: "Yes",
+                                    textCancel: "No",
+                                    buttonColor: active,
+                                    cancelTextColor: Colors.black,
+                                    confirmTextColor: Colors.white,
+                                    middleText:
+                                        "Are you sure to you want to Ban Donor?",
+                                    onConfirm: () {
+                                      donorsController.changeDonorStatus(
+                                          donorsController.donors[index].uid,
+                                          donorsController
+                                              .donors[index].isVerified);
+                                      Get.back();
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                          content: Text('Donor Status Updated'),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                } else {
+                                  Get.defaultDialog(
+                                    title: "Un Ban Donor",
+                                    textConfirm: "Yes",
+                                    textCancel: "No",
+                                    buttonColor: active,
+                                    cancelTextColor: Colors.black,
+                                    confirmTextColor: Colors.white,
+                                    middleText:
+                                        "Are you sure to you want to Un Ban NGO?",
+                                    onConfirm: () {
+                                      donorsController.changeDonorStatus(
+                                          donorsController.donors[index].uid,
+                                          donorsController
+                                              .donors[index].isVerified);
+                                      Get.back();
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                          content: Text('Donor Status Updated'),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                }
+                              },
+                            ),
                     ),
                   ],
                 ),

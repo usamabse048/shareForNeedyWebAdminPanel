@@ -81,6 +81,73 @@ class Database {
     }
   }
 
+  // change donor status
+  Future<void> changeDonorStatus(String donorId, bool currentStatus) {
+    if (currentStatus) {
+      return _firestore
+          .collection('users')
+          .doc(donorId)
+          .update({'isVerified': false})
+          .then((value) => print("Donor status updated false"))
+          .catchError(
+              (error) => print("Donor status update failed with $error"));
+    } else {
+      return _firestore
+          .collection('users')
+          .doc(donorId)
+          .update({'isVerified': true})
+          .then((value) => print("Donor status updated true"))
+          .catchError(
+              (error) => print("Donor status update failed with $error"));
+    }
+  }
+
+// get all banned donors
+
+  Stream<List<DonorModel>> allBannedDonorsList() {
+    return _firestore
+        .collection('users')
+        .where('isVerified', isEqualTo: false)
+        .snapshots()
+        .map((QuerySnapshot<Map<String, dynamic>> querySnapshot) {
+      List<DonorModel> retval = [];
+      querySnapshot.docs.forEach((element) {
+        retval.add(DonorModel.fromDocumentSnapshot(element));
+      });
+      return retval;
+    });
+  }
+
+  // search banned donors with query
+  Stream<List<DonorModel>> searchBannedDonorsByName(String query) {
+    if (query == "") {
+      return _firestore
+          .collection('users')
+          .where('isVerified', isEqualTo: false)
+          .snapshots()
+          .map((QuerySnapshot<Map<String, dynamic>> querySnapshot) {
+        List<DonorModel> retval = [];
+        querySnapshot.docs.forEach((element) {
+          retval.add(DonorModel.fromDocumentSnapshot(element));
+        });
+        return retval;
+      });
+    } else {
+      return _firestore
+          .collection('users')
+          .where('searchKeywords', arrayContains: query)
+          .where('isVerified', isEqualTo: false)
+          .snapshots()
+          .map((QuerySnapshot<Map<String, dynamic>> querySnapshot) {
+        List<DonorModel> retval = [];
+        querySnapshot.docs.forEach((element) {
+          retval.add(DonorModel.fromDocumentSnapshot(element));
+        });
+        return retval;
+      });
+    }
+  }
+
   // search donors with query
   Stream<List<DonorModel>> searchDonorsByName(String query) {
     if (query == "") {
