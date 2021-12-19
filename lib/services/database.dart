@@ -177,15 +177,16 @@ class Database {
   }
   // delete charity request
 
-  void deleteCharityRequest(String charityId, String moderatorId) {
-    _firestore
+  Future<void> deleteCharityRequest(
+      String charityId, String moderatorId) async {
+    await _firestore
         .collection('donations')
         .doc(charityId)
         .delete()
         .then((value) => print("Charity Deleted from donations"))
         .catchError((error) => print("Failed to delete user: $error"));
 
-    _firestore
+    await _firestore
         .collection('moderators')
         .doc(moderatorId)
         .update({
@@ -195,7 +196,7 @@ class Database {
         .catchError((error) =>
             print("Failed to delete charity request from moderator: $error"));
 
-    _firestore
+    await _firestore
         .collection('moderators')
         .doc(moderatorId)
         .collection('moderator_donations')

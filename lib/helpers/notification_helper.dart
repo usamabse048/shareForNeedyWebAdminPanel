@@ -9,6 +9,7 @@ void sendNotification(
     required String title,
     required String body,
     required Map<String, dynamic> payload}) async {
+  print("Activating send notification service");
   await http.post(
     Uri.parse('https://fcm.googleapis.com/fcm/send'),
     headers: <String, String>{

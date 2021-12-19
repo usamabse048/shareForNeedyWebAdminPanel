@@ -2,6 +2,7 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_admin_panel/constants/controllers.dart';
 import 'package:flutter_web_admin_panel/constants/style.dart';
+import 'package:flutter_web_admin_panel/models/donation_transaction_model.dart';
 import 'package:flutter_web_admin_panel/pages/charity_requests/widgets/detail_cell.dart';
 import 'package:get/get.dart';
 
@@ -292,12 +293,21 @@ class ModCharityRequestTable extends StatelessWidget {
                                                         cells: [
                                                           DataCell(
                                                             Text(
-                                                              "under construction",
+                                                              DonationTransaction.fromMap(charityRequestsController
+                                                                      .charityRequestsWithRespectToNgoList[
+                                                                          index]
+                                                                      .donationTransactions[donorIndex])
+                                                                  .donorName,
                                                             ),
                                                           ),
                                                           DataCell(
                                                             Text(
-                                                              "under construction",
+                                                              DonationTransaction.fromMap(charityRequestsController
+                                                                      .charityRequestsWithRespectToNgoList[
+                                                                          index]
+                                                                      .donationTransactions[donorIndex])
+                                                                  .donationAmount
+                                                                  .toString(),
                                                             ),
                                                           ),
                                                         ],
@@ -321,17 +331,26 @@ class ModCharityRequestTable extends StatelessWidget {
                   "Delete",
                 ),
                 onPressed: () {
-                  print(charityRequestsController
-                      .charityRequestsWithRespectToNgoList[index].donationId);
-                  print(charityRequestsController
-                      .charityRequestsWithRespectToNgoList[index].moderatorId);
-                  charityRequestsController.deleteCharityRequests(
-                      charityRequestsController
-                          .charityRequestsWithRespectToNgoList[index]
-                          .donationId,
-                      charityRequestsController
-                          .charityRequestsWithRespectToNgoList[index]
-                          .moderatorId);
+                  Get.defaultDialog(
+                    title: "Delete Charity Request",
+                    textConfirm: "Yes",
+                    textCancel: "No",
+                    buttonColor: active,
+                    cancelTextColor: Colors.black,
+                    confirmTextColor: Colors.white,
+                    middleText:
+                        "Are you sure to you want to Delete this Charity Request?",
+                    onConfirm: () {
+                      charityRequestsController.deleteCharityRequests(
+                          charityRequestsController
+                              .charityRequestsWithRespectToNgoList[index]
+                              .donationId,
+                          charityRequestsController
+                              .charityRequestsWithRespectToNgoList[index]
+                              .moderatorId,
+                          context);
+                    },
+                  );
                 },
               )),
             ],

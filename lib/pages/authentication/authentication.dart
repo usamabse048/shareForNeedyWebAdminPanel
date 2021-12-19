@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_admin_panel/constants/style.dart';
-import 'package:flutter_web_admin_panel/routing/routes.dart';
+import 'package:flutter_web_admin_panel/pages/overview/overview.dart';
+
 import 'package:flutter_web_admin_panel/widgets/custom_text.dart';
-import 'package:get/get.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
 class AuthenticationPage extends StatelessWidget {
-  const AuthenticationPage({Key? key}) : super(key: key);
+  AuthenticationPage({Key? key}) : super(key: key);
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +24,12 @@ class AuthenticationPage extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(right: 12),
-                    child: Image.asset("assets/icons/logo.png"),
+                    child: CustomText(
+                      color: active,
+                      text: "Share For Needy",
+                      fontWeight: FontWeight.bold,
+                      size: 24,
+                    ),
                   ),
                   Expanded(child: Container()),
                 ],
@@ -54,6 +61,7 @@ class AuthenticationPage extends StatelessWidget {
                 height: 15,
               ),
               TextField(
+                controller: _emailController,
                 decoration: InputDecoration(
                     labelText: "Email",
                     hintText: "abc@domain.com",
@@ -64,6 +72,7 @@ class AuthenticationPage extends StatelessWidget {
                 height: 15,
               ),
               TextField(
+                controller: _passwordController,
                 obscureText: true,
                 decoration: InputDecoration(
                     labelText: "Password",
@@ -74,34 +83,22 @@ class AuthenticationPage extends StatelessWidget {
               SizedBox(
                 height: 15,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Checkbox(value: true, onChanged: (value) {}),
-                      CustomText(
-                        text: "Remeber Me",
-                        fontWeight: FontWeight.w300,
-                        color: dark,
-                        size: 16,
-                      ),
-                    ],
-                  ),
-                  CustomText(
-                    text: "Forgot password?",
-                    color: active,
-                    fontWeight: FontWeight.w300,
-                    size: 16,
-                  )
-                ],
-              ),
               SizedBox(
                 height: 15,
               ),
               InkWell(
                 onTap: () {
-                  Get.offAllNamed(RootRoute);
+                  if (_emailController.text == "admin123@shareforneedy.com" &&
+                      _passwordController.text == "share123") {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => (OverviewPage())));
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text('Wrong email or password'),
+                    ));
+                  }
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -120,13 +117,6 @@ class AuthenticationPage extends StatelessWidget {
               SizedBox(
                 height: 15,
               ),
-              RichText(
-                  text: TextSpan(children: [
-                TextSpan(text: "Do not have admin credentials? "),
-                TextSpan(
-                    text: "Request Credentials! ",
-                    style: TextStyle(color: active))
-              ]))
             ],
           ),
         ),

@@ -214,6 +214,12 @@ class OverviewPage extends StatelessWidget {
                       ],
                     ),
                   ),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      style: ElevatedButton.styleFrom(primary: Colors.red),
+                      child: Text("Logout")),
 
                   //RegisteredNgosTable()
                 ],

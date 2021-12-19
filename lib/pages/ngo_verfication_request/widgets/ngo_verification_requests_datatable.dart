@@ -2,6 +2,7 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_admin_panel/constants/controllers.dart';
 import 'package:flutter_web_admin_panel/constants/style.dart';
+import 'package:flutter_web_admin_panel/helpers/notification_helper.dart';
 import 'package:flutter_web_admin_panel/pages/ngo_detail_page.dart/ngo_detail_page.dart';
 import 'package:flutter_web_admin_panel/widgets/custom_text.dart';
 import 'package:get/get.dart';
@@ -176,35 +177,39 @@ class NgoVerificationRequestDataTable extends StatelessWidget {
                                         )));
                           },
                         )),
-                        DataCell(ngoController.isLoading
-                            ? CircularProgressIndicator()
-                            : ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    primary: Colors.red),
-                                child: Text(
-                                  "Approve",
-                                ),
-                                onPressed: () {
-                                  Get.defaultDialog(
-                                    title: "Approve NGO",
-                                    textConfirm: "Yes",
-                                    textCancel: "No",
-                                    buttonColor: active,
-                                    cancelTextColor: Colors.black,
-                                    confirmTextColor: Colors.white,
-                                    middleText: "Are you sure to Approve NGO?",
-                                    onConfirm: () {
-                                      ngoController.changeNgoStatus(
-                                          ngoController
-                                              .verficationNgosList[index].uid,
-                                          ngoController
-                                              .verficationNgosList[index]
-                                              .isVerified);
-                                      Get.back();
-                                    },
-                                  );
-                                },
-                              )),
+                        DataCell(ElevatedButton(
+                          style: ElevatedButton.styleFrom(primary: Colors.red),
+                          child: Text(
+                            "Approve",
+                          ),
+                          onPressed: () {
+                            Get.defaultDialog(
+                              title: "Approve NGO",
+                              textConfirm: "Yes",
+                              textCancel: "No",
+                              buttonColor: active,
+                              cancelTextColor: Colors.black,
+                              confirmTextColor: Colors.white,
+                              middleText: "Are you sure to Approve NGO?",
+                              onConfirm: () {
+                                ngoController.changeNgoStatus(
+                                    ngoController
+                                        .verficationNgosList[index].uid,
+                                    ngoController
+                                        .verficationNgosList[index].isVerified,
+                                    context);
+
+                                sendNotification(
+                                    recieverToken: ngoController
+                                        .verficationNgosList[index].fcmToken,
+                                    title: "Congratulations",
+                                    body:
+                                        "Your account has been verified. Now you can login to the system using your credentials",
+                                    payload: <String, dynamic>{});
+                              },
+                            );
+                          },
+                        )),
                       ],
                     ),
                   ),

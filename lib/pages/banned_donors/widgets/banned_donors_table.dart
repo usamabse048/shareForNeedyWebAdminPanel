@@ -126,40 +126,32 @@ class BannedDonorsDataTable extends StatelessWidget {
                             style: TextStyle(color: Colors.red),
                           )),
                     DataCell(
-                      donorsController.isDonorStatusChanging
-                          ? CircularProgressIndicator()
-                          : ElevatedButton(
-                              style: ElevatedButton.styleFrom(primary: active),
-                              child: Text(
-                                "Un Ban",
-                              ),
-                              onPressed: () {
-                                Get.defaultDialog(
-                                  title: "Un Ban Donor",
-                                  textConfirm: "Yes",
-                                  textCancel: "No",
-                                  buttonColor: active,
-                                  cancelTextColor: Colors.black,
-                                  confirmTextColor: Colors.white,
-                                  middleText:
-                                      "Are you sure to you want to Un Ban Donor?",
-                                  onConfirm: () {
-                                    donorsController.changeDonorStatus(
-                                        donorsController
-                                            .bannedDonorsSearchList[index].uid,
-                                        donorsController
-                                            .bannedDonorsSearchList[index]
-                                            .isVerified);
-                                    Get.back();
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text('Donor Status Updated'),
-                                      ),
-                                    );
-                                  },
-                                );
-                              },
-                            ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(primary: active),
+                        child: Text(
+                          "Un Ban",
+                        ),
+                        onPressed: () {
+                          Get.defaultDialog(
+                            title: "Un Ban Donor",
+                            textConfirm: "Yes",
+                            textCancel: "No",
+                            buttonColor: active,
+                            cancelTextColor: Colors.black,
+                            confirmTextColor: Colors.white,
+                            middleText:
+                                "Are you sure to you want to Un Ban Donor?",
+                            onConfirm: () {
+                              donorsController.changeDonorStatus(
+                                  donorsController
+                                      .bannedDonorsSearchList[index].uid,
+                                  donorsController
+                                      .bannedDonorsSearchList[index].isVerified,
+                                  context);
+                            },
+                          );
+                        },
+                      ),
                     ),
                   ],
                 ),

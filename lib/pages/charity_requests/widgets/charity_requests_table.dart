@@ -389,14 +389,26 @@ class CharityRequestsTable extends StatelessWidget {
                               "Delete",
                             ),
                             onPressed: () {
-                              charityRequestsController.deleteCharityRequests(
+                              Get.defaultDialog(
+                                title: "Delete Charity Request",
+                                textConfirm: "Yes",
+                                textCancel: "No",
+                                buttonColor: active,
+                                cancelTextColor: Colors.black,
+                                confirmTextColor: Colors.white,
+                                middleText:
+                                    "Are you sure to you want to Delete this Charity Request?",
+                                onConfirm: () {
                                   charityRequestsController
-                                      .charityRequests[index].donationId,
-                                  charityRequestsController
-                                      .charityRequests[index].moderatorId);
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Text('Charity Request Deleted')),
+                                      .deleteCharityRequests(
+                                          charityRequestsController
+                                              .charityRequests[index]
+                                              .donationId,
+                                          charityRequestsController
+                                              .charityRequests[index]
+                                              .moderatorId,
+                                          context);
+                                },
                               );
                             },
                           )),

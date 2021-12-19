@@ -244,25 +244,31 @@ class ReportsData extends StatelessWidget {
                         ),
                       ),
                       DataCell(
-                        reportsController.isDismissReportLoading
-                            ? CircularProgressIndicator()
-                            : ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    primary: Colors.red),
-                                child: Text(
-                                  "Dismiss",
-                                ),
-                                onPressed: () {
-                                  reportsController.dismissDonorReport(
-                                      reportsController
-                                          .allReportsNotRespondedList[index]
-                                          .reportId);
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                        content: Text('Report Dissmissed')),
-                                  );
-                                },
-                              ),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(primary: Colors.red),
+                          child: Text(
+                            "Dismiss",
+                          ),
+                          onPressed: () {
+                            Get.defaultDialog(
+                              title: "Dismiss Report",
+                              textConfirm: "Yes",
+                              textCancel: "No",
+                              buttonColor: active,
+                              cancelTextColor: Colors.black,
+                              confirmTextColor: Colors.white,
+                              middleText:
+                                  "Are you sure to you want to Dismiss this report?",
+                              onConfirm: () {
+                                reportsController.dismissDonorReport(
+                                    reportsController
+                                        .allReportsNotRespondedList[index]
+                                        .reportId,
+                                    context);
+                              },
+                            );
+                          },
+                        ),
                       ),
                     ],
                   ),

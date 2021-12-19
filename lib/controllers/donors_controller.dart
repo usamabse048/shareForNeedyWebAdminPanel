@@ -1,6 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_web_admin_panel/models/donor.dart';
 import 'package:flutter_web_admin_panel/services/database.dart';
 import 'package:get/get.dart';
+import 'package:sn_progress_dialog/sn_progress_dialog.dart';
 
 class DonorsController extends GetxController {
   static DonorsController instance = Get.find();
@@ -23,10 +25,17 @@ class DonorsController extends GetxController {
     donorsList.bindStream(Database().searchDonorsByName(query));
   }
 
-  void changeDonorStatus(String donorId, bool currentStatus) async {
+  void changeDonorStatus(
+      String donorId, bool currentStatus, BuildContext context) async {
+    Get.back();
+    ProgressDialog pd = ProgressDialog(context: context);
     isDonorStatusChanging = true;
+    pd.show(max: 100, msg: "Updating Donor Status");
     await _database.changeDonorStatus(donorId, currentStatus);
     isDonorStatusChanging = false;
+    if (!isDonorStatusChanging) {
+      pd.close();
+    }
   }
 
   @override
